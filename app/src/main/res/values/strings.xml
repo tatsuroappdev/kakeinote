@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">KakeiNote</string>
+    <string name="app_name">かけいノート</string>
+    <string name="app_name_short">かけい</string>
+    <string name="household_account_book">家計簿</string>
+    <string name="write">書き込む</string>
 </resources>

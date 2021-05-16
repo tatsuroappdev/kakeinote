@@ -3,19 +3,27 @@
     package="com.tatsuro.app.kakeinote">
 
     <application
-        android:allowBackup="true"
+        android:name=".App"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KakeiNote">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
+        <activity
+            android:name=".ui.householdaccountbook.HouseholdAccountBookActivity"
+            android:screenOrientation="portrait">
+
+            <!-- ランチャーに表示されるアプリ名は省略形にする。 -->
+            <!-- ただし、ランチャーがアプリ名を参照する先はランチャーによって異なるため、-->
+            <!-- 必ず省略形が表示されるわけではない。-->
+            <intent-filter android:label="@string/app_name_short">
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

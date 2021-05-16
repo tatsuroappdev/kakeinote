@@ -1,16 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.KakeiNote" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+    <!-- アプリケーションのベーステーマ -->
+    <style name="Theme.KakeiNote" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- プライマリの色 -->
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorPrimaryVariant">@color/light_blue</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <!-- セカンダリの色 -->
+        <item name="colorSecondary">@color/light_blue</item>
+        <item name="colorSecondaryVariant">@color/light_blue</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
+        <!-- ステータスバーの色 -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+    </style>
+
+    <!-- ツールバーのテーマ -->
+    <style name="Theme.KakeiNote.Toolbar">
+        <!-- ツールバーのタイトルテキストの色 -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- ツールバーのオプションメニューのOverflowアイコンの色 -->
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <!-- FloatingActionButtonのテーマ -->
+    <style name="Theme.KakeiNote.FloatingActionButton">
+        <!-- FloatingActionButtonのテキストの色 -->
+        <item name="colorOnSecondary">@color/white</item>
     </style>
 </resources>
