@@ -33,7 +33,7 @@ class App : Application() {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
             .tag("KakeiNote")
             .build()
-        // DEBUGのときだけ、ログ出力する。
+        // DEBUGのときにのみログ出力する。
         Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG
@@ -44,28 +44,31 @@ class App : Application() {
     /**
      * Flipperを初期化する。
      *
-     * 有効にするプラグインは以下の通りとする。
+     * 有効にするプラグインは以下とする。
      * - InspectorFlipperPlugin
      * - LeakCanary2FlipperPlugin
      */
     private fun initFlipper() {
         SoLoader.init(this,false)
-        if(BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)){
-            val client = AndroidFlipperClient.getInstance(this).apply {
-                //////////////////////
-                // pluginを追加する。
-                //////////////////////
-                // レイアウト
-                val descriptorMapping = DescriptorMapping.withDefaults()
-                addPlugin(InspectorFlipperPlugin(this@App, descriptorMapping))
 
-                // LeakCanary
-                LeakCanary.config = LeakCanary.config.copy(
-                    onHeapAnalyzedListener = FlipperLeakListener()
-                )
-                addPlugin(LeakCanary2FlipperPlugin())
-            }
-            client.start()
+        if (!BuildConfig.DEBUG || !FlipperUtils.shouldEnableFlipper(this)) {
+            return
         }
+
+        val client = AndroidFlipperClient.getInstance(this).apply {
+            //////////////////////
+            // pluginを追加する。
+            //////////////////////
+            // レイアウト
+            val descriptorMapping = DescriptorMapping.withDefaults()
+            addPlugin(InspectorFlipperPlugin(this@App, descriptorMapping))
+
+            // LeakCanary
+            LeakCanary.config = LeakCanary.config.copy(
+                onHeapAnalyzedListener = FlipperLeakListener()
+            )
+            addPlugin(LeakCanary2FlipperPlugin())
+        }
+        client.start()
     }
 }

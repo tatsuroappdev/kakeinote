@@ -12,9 +12,13 @@
         android:theme="@style/Theme.KakeiNote">
 
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.householdaccountbook.HouseholdAccountBookActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
+
+            <!-- ランチャーに表示されるアプリ名は省略形にする。 -->
+            <!-- ただし、ランチャーがアプリ名を参照する先はランチャーによって異なるため、-->
+            <!-- 必ず省略形が表示されるわけではない。-->
+            <intent-filter android:label="@string/app_name_short">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
