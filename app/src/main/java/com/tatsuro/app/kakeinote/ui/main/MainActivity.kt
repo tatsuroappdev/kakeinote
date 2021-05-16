@@ -1,9 +1,10 @@
-package com.tatsuro.app.kakeinote
+package com.tatsuro.app.kakeinote.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tatsuro.app.kakeinote.ui.main.MainFragment
+import com.tatsuro.app.kakeinote.R
 
+/** 家計簿Activity. */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
