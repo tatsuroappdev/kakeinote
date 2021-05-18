@@ -4,6 +4,7 @@
       <w>androiddebugkey</w>
       <w>constraintlayout</w>
       <w>householdaccountbook</w>
+      <w>icooon</w>
       <w>jetbrains</w>
       <w>kakei</w>
       <w>kakeinote</w>
@@ -12,9 +13,12 @@
       <w>leakcanary</w>
       <w>livedata</w>
       <w>orhanobut</w>
+      <w>snackbar</w>
       <w>soloader</w>
       <w>squareup</w>
       <w>tatsuro</w>
+      <w>unelevated</w>
+      <w>upsert</w>
       <w>viewmodel</w>
     </words>
   </dictionary>

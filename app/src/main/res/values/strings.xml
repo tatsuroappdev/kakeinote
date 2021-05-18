@@ -4,4 +4,72 @@
     <string name="app_name_short">かけい</string>
     <string name="household_account_book">家計簿</string>
     <string name="write">書き込む</string>
+    <string name="new_write">新規書き込み</string>
+    <string name="income">収入</string>
+    <string name="expense">支出</string>
+    <string name="date">日付</string>
+    <string-array name="day_of_week">
+        <item>月</item>
+        <item>火</item>
+        <item>水</item>
+        <item>木</item>
+        <item>金</item>
+        <item>土</item>
+        <item>日</item>
+    </string-array>
+    <!-- %1$d: 年, %2$d: 月, %3$d: 日, %4$s: 曜日 -->
+    <string name="formatted_date">%1$d年%2$d月%3$d日（%4$s）</string>
+    <string name="date_to_previous">日付を前日に戻します</string>
+    <string name="date_to_next">日付を翌日に進めます</string>
+    <string name="time">時間</string>
+    <string name="please_select_time">時間を選択してください</string>
+    <string name="type">種類</string>
+    <string name="content">内容</string>
+    <string name="amount_of_money">金額</string>
+    <string name="repeat_write">連続で書き込む</string>
+    <string name="write_new_and_close_activity">
+        家計簿に新規の収支を書き込み、この画面を閉じます
+    </string>
+    <string name="write_new_and_can_write_other">
+        家計簿に新規の収支を書き込んだ後、続けて他の収支を書き込むことができます
+    </string>
+    <string name="delete">削除する</string>
+    <string name="copy">コピーする</string>
+    <string name="save">保存する</string>
+    <string name="please_select_type">種類を選択してください</string>
+    <string name="select">選択する</string>
+    <string name="write_income_or_expense">%1$s %2$s %3$d を書き込みました</string>
+    <string name="ok">OK</string>
+
+    <!-- 収入 -->
+    <string name="salary">給料</string>
+    <string name="pension">年金</string>
+    <string name="remittance">仕送り</string>
+    <string name="pocket_money">おこづかい</string>
+    <string name="bonus">ボーナス</string>
+    <string name="temporary_income">臨時収入</string>
+    <string name="loan">借入</string>
+    <string name="interest">利子</string>
+    <string name="investment_income">投資収入</string>
+    <string name="sale_income">売却収入</string>
+
+    <!-- 支出 -->
+    <string name="food_expense">食費</string>
+    <string name="leisure">レジャー</string>
+    <string name="entertainment">交際</string>
+    <string name="clothing">衣類</string>
+    <string name="beauty">美容</string>
+    <string name="book">書籍</string>
+    <string name="liberal_arts">教養</string>
+    <string name="medical_care">医療</string>
+    <string name="health_care">健康</string>
+    <string name="transportation">交通</string>
+    <string name="housing">住宅</string>
+    <string name="water">水道</string>
+    <string name="gas">ガス</string>
+    <string name="electricity">電気</string>
+    <string name="communication">通信</string>
+    <string name="tax">税金</string>
+
+    <string name="other">その他</string>
 </resources>

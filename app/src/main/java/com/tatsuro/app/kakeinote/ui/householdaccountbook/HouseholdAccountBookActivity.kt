@@ -1,11 +1,13 @@
 package com.tatsuro.app.kakeinote.ui.householdaccountbook
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookActivityBinding
+import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
 
-/** 家計簿Activity. */
+/** 家計簿アクティビティ */
 class HouseholdAccountBookActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,12 +17,13 @@ class HouseholdAccountBookActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, HouseholdAccountBookFragment.newInstance())
-                    .commitNow()
+                .replace(R.id.container, HouseholdAccountBookFragment.newInstance())
+                .commitNow()
         }
 
         binding.writeButton.setOnClickListener {
-            // TODO:詳細Activityへの遷移を実装する。
+            val intent = Intent(this, DetailsActivity::class.java)
+            startActivity(intent)
         }
     }
 }
