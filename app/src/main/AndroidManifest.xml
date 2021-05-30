@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.tatsuro.app.kakeinote">
 
     <application
@@ -9,20 +10,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.KakeiNote">
+        android:theme="@style/Theme.KakeiNote"
+        tools:ignore="LockedOrientationActivity">
 
         <activity
             android:name=".ui.householdaccountbook.HouseholdAccountBookActivity"
             android:screenOrientation="portrait">
 
             <!-- ランチャーに表示されるアプリ名は省略形にする。 -->
-            <!-- ただし、ランチャーがアプリ名を参照する先はランチャーによって異なるため、-->
-            <!-- 必ず省略形が表示されるわけではない。-->
+            <!-- ただし、ランチャーがアプリ名を参照する先はランチャーによって異なるため、 -->
+            <!-- 必ず省略形が表示されるわけではない。 -->
             <intent-filter android:label="@string/app_name_short">
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".ui.details.DetailsActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
