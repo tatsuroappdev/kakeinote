@@ -7,10 +7,7 @@ import com.tatsuro.app.kakeinote.database.AppDatabase
 /** 家計簿ビューモデル */
 class HouseholdAccountBookViewModel(application: Application) : AndroidViewModel(application) {
 
-//    val householdAccountBookFragment = dao.select()
-
-    /** DAO */
-    private val dao = AppDatabase
+    val householdAccountBook = AppDatabase
         .getInstance(application.applicationContext)
-        .dao()
+        .dao().selectAtLiveData()
 }

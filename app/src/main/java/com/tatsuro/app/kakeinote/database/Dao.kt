@@ -1,15 +1,14 @@
 package com.tatsuro.app.kakeinote.database
 
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 
 @Dao
 interface Dao {
 
-//    @Query("SELECT * FROM household_account_book")
-//    suspend fun select(): LiveData<List<HouseholdAccountBook>>
+    @Query("SELECT * FROM household_account_book ORDER BY date DESC, time DESC")
+    fun selectAtLiveData(): LiveData<List<HouseholdAccountBook>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(householdAccountBook: HouseholdAccountBook)

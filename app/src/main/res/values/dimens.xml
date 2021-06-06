@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="household_account_book_item_distance">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="main_padding">16dp</dimen>
     <dimen name="row_height">48dp</dimen>
     <dimen name="roundButton_cornerRadius">24dp</dimen>
     <dimen name="button_paddingHorizontal">32dp</dimen>
     <dimen name="letterSpacing">0.5</dimen>
-    <dimen name="vertical_margin">12dp</dimen>
-    <dimen name="horizontal_margin">4dp</dimen>
-    <dimen name="horizontal_margin_long">8dp</dimen>
+    <!-- TODO:名称変更の影響を確認する。 -->
+    <dimen name="vertical_margin_long">12dp</dimen>
+    <dimen name="vertical_margin_short">4dp</dimen>
+    <dimen name="horizontal_margin_middle">8dp</dimen>
+    <dimen name="horizontal_margin_short">4dp</dimen>
+    <dimen name="borderline_height">1dp</dimen>
 </resources>
