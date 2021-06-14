@@ -30,7 +30,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:letterSpacing="@dimen/letterSpacing"
             app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintEnd_toStartOf="@+id/incomeButton"
+            app:layout_constraintEnd_toStartOf="@id/incomeButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
             android:letterSpacing="@dimen/letterSpacing"
             app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/expenseButton"
+            app:layout_constraintStart_toEndOf="@id/expenseButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -72,9 +72,9 @@
             android:layout_marginTop="@dimen/vertical_margin_short"
             android:layout_marginBottom="@dimen/vertical_margin_short"
             android:hint="@string/date"
-            app:layout_constraintEnd_toEndOf="@+id/dateGuideline"
+            app:layout_constraintEnd_toEndOf="@id/dateGuideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/expenseButton">
+            app:layout_constraintTop_toBottomOf="@id/expenseButton">
 
             <!-- onClickリスナーをソースコードで設定している。 -->
             <com.google.android.material.textfield.TextInputEditText
@@ -97,9 +97,9 @@
             android:onClick="@{() -> viewModel.onPrevDayButtonClick()}"
             android:contentDescription="@string/date_to_previous"
             app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
-            app:layout_constraintBottom_toTopOf="@+id/timeLayout"
-            app:layout_constraintStart_toEndOf="@+id/dateLayout"
-            app:layout_constraintTop_toBottomOf="@+id/expenseButton" />
+            app:layout_constraintBottom_toTopOf="@id/timeLayout"
+            app:layout_constraintStart_toEndOf="@id/dateLayout"
+            app:layout_constraintTop_toBottomOf="@id/expenseButton" />
 
         <!-- TODO:色を変更したい。 -->
         <ImageButton
@@ -110,9 +110,9 @@
             android:onClick="@{() -> viewModel.onNextDayButtonClick()}"
             android:contentDescription="@string/date_to_next"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:layout_constraintBottom_toTopOf="@+id/timeLayout"
-            app:layout_constraintStart_toEndOf="@+id/prevDayButton"
-            app:layout_constraintTop_toBottomOf="@+id/expenseButton" />
+            app:layout_constraintBottom_toTopOf="@id/timeLayout"
+            app:layout_constraintStart_toEndOf="@id/prevDayButton"
+            app:layout_constraintTop_toBottomOf="@id/expenseButton" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/timeLayout"
@@ -122,9 +122,9 @@
             android:layout_marginTop="@dimen/vertical_margin_short"
             android:layout_marginBottom="@dimen/vertical_margin_short"
             android:hint="@string/time"
-            app:layout_constraintEnd_toEndOf="@+id/timeGuideline"
+            app:layout_constraintEnd_toEndOf="@id/timeGuideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateLayout">
+            app:layout_constraintTop_toBottomOf="@id/dateLayout">
 
             <!-- onClickリスナーをソースコードで設定している。 -->
             <com.google.android.material.textfield.TextInputEditText
@@ -148,7 +148,7 @@
             android:hint="@string/type"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeLayout">
+            app:layout_constraintTop_toBottomOf="@id/timeLayout">
 
             <!-- onClickリスナーをソースコードで設定している。 -->
             <com.google.android.material.textfield.TextInputEditText
@@ -172,7 +172,7 @@
             android:hint="@string/content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/typeLayout"
+            app:layout_constraintTop_toBottomOf="@id/typeLayout"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -195,7 +195,7 @@
             android:hint="@string/amount_of_money"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contentLayout"
+            app:layout_constraintTop_toBottomOf="@id/contentLayout"
             app:endIconMode="clear_text"
             app:helperTextEnabled="true">
 
@@ -220,8 +220,8 @@
             android:text="@string/write"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintBottom_toTopOf="@+id/deleteButton"
-            app:layout_constraintEnd_toStartOf="@+id/repeatWriteButton"
+            app:layout_constraintBottom_toTopOf="@id/deleteButton"
+            app:layout_constraintEnd_toStartOf="@id/repeatWriteButton"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -234,9 +234,9 @@
             android:text="@string/repeat_write"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintBottom_toTopOf="@+id/deleteButton"
+            app:layout_constraintBottom_toTopOf="@id/deleteButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/onceWriteButton" />
+            app:layout_constraintStart_toEndOf="@id/onceWriteButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/deleteButton"
@@ -250,7 +250,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/copyButton"
+            app:layout_constraintEnd_toStartOf="@id/copyButton"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -264,8 +264,8 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/saveButton"
-            app:layout_constraintStart_toEndOf="@+id/deleteButton" />
+            app:layout_constraintEnd_toStartOf="@id/saveButton"
+            app:layout_constraintStart_toEndOf="@id/deleteButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveButton"
@@ -279,7 +279,7 @@
             app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/copyButton" />
+            app:layout_constraintStart_toEndOf="@id/copyButton" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/newWriteButtonsGroup"

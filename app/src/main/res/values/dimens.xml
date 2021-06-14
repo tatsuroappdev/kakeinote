@@ -3,7 +3,11 @@
     <dimen name="household_account_book_item_distance">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="main_padding">16dp</dimen>
+    <dimen name="header_textSize_large">16sp</dimen>
+    <dimen name="header_textSize_small">12sp</dimen>
+    <dimen name="icon_size">24dp</dimen>
     <dimen name="row_height">48dp</dimen>
+    <dimen name="background_cornerRadius">4dp</dimen>
     <dimen name="roundButton_cornerRadius">24dp</dimen>
     <dimen name="button_paddingHorizontal">32dp</dimen>
     <dimen name="letterSpacing">0.5</dimen>

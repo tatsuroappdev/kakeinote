@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <!-- TODO:FABの高さを合わせる。 -->
     <!-- TODO:検索ボタンの色を反転させる。 -->
@@ -38,7 +38,7 @@
         android:theme="@style/Theme.KakeiNote.FloatingActionButton"
         android:contentDescription="@string/show_search_activity"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/writeButton"
+        app:layout_constraintEnd_toStartOf="@id/writeButton"
         app:srcCompat="@drawable/ic_baseline_search_24" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
