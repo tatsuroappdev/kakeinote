@@ -2,6 +2,8 @@ package com.tatsuro.app.kakeinote
 
 import android.app.Application
 import android.content.Context
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.databases.DatabasesFlipperPlugin
@@ -20,17 +22,29 @@ import leakcanary.LeakCanary
 class App : Application() {
 
     init {
-        instance = this
+        nullableInstance = this
     }
 
     companion object {
 
-        /** Appインスタンス */
-        private var instance: App? = null
+        /** nullを許容するAppインスタンス */
+        private var nullableInstance: App? = null
+
+        /** nullを許容しないAppインスタンス */
+        private val nonNullInstance get() =
+            nullableInstance ?: error(APPLICATION_INSTANCE_NOT_GOTTEN)
 
         /** アプリケーションコンテキスト */
-        val applicationContext: Context get() =
-            instance?.applicationContext ?: error(APPLICATION_INSTANCE_NOT_GOTTEN)
+        val applicationContext: Context get() = nonNullInstance.applicationContext
+
+        /**
+         * 引数[id]に紐付く色を返す。
+         * @param id 色のリソースID
+         * @return 引数[id]に紐付く色
+         * @exception IllegalStateException アプリケーションインスタンスが取得される前に呼ばれた場合に投げられる。
+         * @exception android.content.res.Resources.NotFoundException 引数[id]が存在しない場合に投げられる。
+         */
+        fun getColor(@ColorRes id: Int) = ContextCompat.getColor(nonNullInstance, id)
     }
 
     override fun onCreate() {

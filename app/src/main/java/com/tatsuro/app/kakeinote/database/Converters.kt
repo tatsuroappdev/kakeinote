@@ -48,11 +48,11 @@ class Converters {
     @TypeConverter
     fun stringToIncomeOrExpense(value: String) = enumValueOf<IncomeOrExpense>(value)
 
-    /** 収支の種類の[String]型定数名を返す。 */
+    /** 収支の種類の[String]?型定数名を返す。 */
     @TypeConverter
     fun incomeOrExpenseTypeToString(value: IncomeOrExpenseType?) = value?.name
 
-    /** [String]型収支の種類を[IncomeOrExpenseType]型に変換して返す。 */
+    /** [String]?型収支の種類を[IncomeOrExpenseType]?型に変換して返す。 */
     @TypeConverter
     fun stringToIncomeOrExpenseType(value: String?): IncomeOrExpenseType? {
         val nonNullValue = value ?: return null

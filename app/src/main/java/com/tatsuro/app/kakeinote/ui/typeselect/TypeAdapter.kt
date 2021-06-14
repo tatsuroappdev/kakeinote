@@ -8,6 +8,7 @@ import com.google.android.material.button.MaterialButton
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
 
+// TODO:findViewByIdからViewBindingに書き換える。
 class TypeAdapter(
     private val types: Array<IncomeOrExpenseType>,
     private val listener: OnItemClickListener

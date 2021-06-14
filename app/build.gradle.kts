@@ -80,7 +80,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.fragment:fragment-ktx:1.3.4")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("androidx.recyclerview:recyclerview:1.2.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
 
     // AndroidX Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
@@ -95,10 +95,10 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0")
 
     // Flipper
-    debugImplementation("com.facebook.flipper:flipper:0.91.1")
+    debugImplementation("com.facebook.flipper:flipper:0.93.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.91.1")
-    releaseImplementation("com.facebook.flipper:flipper-noop:0.91.1")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.93.0")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.93.0")
 
     implementation("com.orhanobut:logger:2.2.0")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
