@@ -9,10 +9,38 @@
         android:id="@+id/dayTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
         android:layout_marginStart="@dimen/horizontal_margin_middle"
-        android:gravity="start|center_vertical"
+        android:gravity="end|center_vertical"
+        android:text="14日"
+        android:textSize="@dimen/header_textSize_large"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/dayOfWeekGuideline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/dayOfWeekGuideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <TextView
+        android:id="@+id/dayOfWeekTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:background="@drawable/bg_weekdays"
+        android:text="月曜日"
+        android:textSize="@dimen/header_textSize_small"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dayOfWeekGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -20,27 +48,20 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <TextView
-        android:id="@+id/incomeLabelTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start|center_vertical"
-        android:text="@string/income"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/incomeGuideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <TextView
         android:id="@+id/incomeAmountTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_middle"
-        android:gravity="start|center_vertical"
+        android:layout_marginHorizontal="@dimen/horizontal_margin_middle"
+        android:gravity="end|center_vertical"
+        android:text="¥ 99,999,999"
+        android:textSize="@dimen/header_textSize_large"
         android:textColor="@color/blue"
+        app:layout_constraintEnd_toStartOf="@id/expenseGuideline"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/incomeLabelTextView"
+        app:layout_constraintStart_toEndOf="@id/incomeGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -48,40 +69,29 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
-
-    <TextView
-        android:id="@+id/expenseLabelTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start|center_vertical"
-        android:text="@string/expense"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/expenseGuideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintGuide_percent="0.7" />
 
     <TextView
         android:id="@+id/expenseAmountTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin_middle"
-        android:gravity="start|center_vertical"
+        android:layout_marginHorizontal="@dimen/horizontal_margin_middle"
+        android:gravity="end|center_vertical"
+        android:text="¥ 99,999,999"
+        android:textSize="@dimen/header_textSize_large"
         android:textColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/expenseLabelTextView"
+        app:layout_constraintStart_toEndOf="@id/expenseGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- TODO:罫線の色を灰色にする。TextViewのtextColorに合わせたい。 -->
-    <!-- TODO:罫線両端の白線のようなものを削除する。 -->
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/borderline_height"
         android:layout_marginTop="@dimen/vertical_margin_short"
-        android:layout_marginEnd="@dimen/main_padding"
-        android:layout_marginStart="@dimen/main_padding"
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayTextView" />
+        app:layout_constraintTop_toBottomOf="@id/dayOfWeekTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
