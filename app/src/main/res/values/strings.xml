@@ -3,10 +3,11 @@
     <string name="app_name">かけいノート</string>
     <string name="app_name_short">かけい</string>
     <string name="household_account_book">家計簿</string>
+    <string name="search">検索</string>
+    <string name="other">その他</string>
     <string name="income">収入</string>
     <string name="expense">支出</string>
     <string name="write">書き込む</string>
-    <string name="show_search_activity">検索画面を表示します</string>
     <string name="show_new_write_activity">新規書き込み画面を表示します</string>
     <string name="new_write">新規書き込み</string>
     <string name="date">日付</string>
@@ -77,5 +78,7 @@
     <string name="communication">通信</string>
     <string name="tax">税金</string>
 
-    <string name="other">その他</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_search_fragment">Hello search fragment</string>
+    <string name="hello_other_fragment">Hello other fragment</string>
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/household_account_book_fragment"
+        android:icon="@drawable/ic_baseline_library_books_24"
+        android:title="@string/household_account_book" />
+
+    <item
+        android:id="@+id/search_fragment"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/search" />
+
+    <item
+        android:id="@+id/other_fragment"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/other" />
+
+</menu>
