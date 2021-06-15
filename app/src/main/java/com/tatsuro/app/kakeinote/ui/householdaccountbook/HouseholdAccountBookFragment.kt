@@ -1,7 +1,9 @@
 package com.tatsuro.app.kakeinote.ui.householdaccountbook
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
@@ -14,16 +16,46 @@ import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookFragmentBinding
 /** 家計簿フラグメント */
 class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fragment) {
 
-    companion object {
+    /** 書き込むボタンがクリックされたときに呼び出されるコールバックのためのインターフェース定義 */
+    interface OnWriteButtonClickListener {
+
+        /** 書き込むボタンがクリックされたときに呼び出される。 */
+        fun onWriteButtonClick()
+    }
+
+    /** 家計簿リストの行がクリックされたときに呼び出されるコールバックのためのインターフェース定義 */
+    interface OnItemClickListener {
 
         /**
-         * フラグメントのインスタントを返す。
-         * @return フラグメントインスタント
+         * 家計簿リストの行がクリックされたときに呼び出される。
+         * @param id クリックされた家計簿ID
          */
-        fun newInstance() = HouseholdAccountBookFragment()
+        fun onItemClick(id: Int)
     }
 
     private val viewModel: HouseholdAccountBookViewModel by viewModels()
+
+    private lateinit var onWriteButtonClickListener: OnWriteButtonClickListener
+
+    private lateinit var onItemClickListener: OnItemClickListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is OnWriteButtonClickListener) {
+            onWriteButtonClickListener = context
+        } else {
+            // TODO:要実装
+            error("")
+        }
+
+        if (context is OnItemClickListener) {
+            onItemClickListener = context
+        } else {
+            // TODO:要実装
+            error("")
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,14 +90,23 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
                 // 日毎の家計簿本体
                 concatAdapter.addAdapter(
                     HouseholdAccountBookBodyAdapter(dailyHouseholdAccountBook) {
-                        // TODO:要実装
+                        onItemClickListener.onItemClick(it)
                     }
                 )
             }
 
-            binding.householdAccountBookRecyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = concatAdapter
+            binding.apply {
+                householdAccountBookRecyclerView.apply {
+                    layoutManager = LinearLayoutManager(requireContext())
+                    adapter = concatAdapter
+                }
+
+                TooltipCompat.setTooltipText(
+                    writeButton, getString(R.string.show_new_write_activity))
+
+                writeButton.setOnClickListener {
+                    onWriteButtonClickListener.onWriteButtonClick()
+                }
             }
         }
     }

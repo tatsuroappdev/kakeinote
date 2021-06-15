@@ -14,7 +14,7 @@
         tools:ignore="LockedOrientationActivity">
 
         <activity
-            android:name=".ui.householdaccountbook.HouseholdAccountBookActivity"
+            android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait">
 
             <!-- ランチャーに表示されるアプリ名は省略形にする。 -->
