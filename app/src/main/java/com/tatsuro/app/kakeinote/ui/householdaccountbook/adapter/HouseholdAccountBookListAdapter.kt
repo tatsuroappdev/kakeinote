@@ -1,4 +1,4 @@
-package com.tatsuro.app.kakeinote.ui.householdaccountbook
+package com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -32,21 +32,21 @@ class HouseholdAccountBookListAdapter(
     /**
      * 家計簿リスト項目のビューホルダ
      * @property binding 家計簿リスト項目のビューバインディング
-     * @property listener 家計簿リスト項目のクリックリスナ
      */
-    class ViewHolder(
-        private val binding: HouseholdAccountBookItemBinding,
-        private val listener: OnItemClickListener
+    inner class ViewHolder(
+        private val binding: HouseholdAccountBookItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * ビューバインド
          *
-         * 家計簿リスト項目の各ビューと引数[householdAccountBook]をバインドする。
-         * @param householdAccountBook 家計簿
+         * 家計簿リスト項目の各ビューと[householdAccountBookList]のバインド対象をバインドする。
+         * @param position バインド対象の位置
          */
-        fun bind(householdAccountBook: HouseholdAccountBook) {
+        fun bind(position: Int) {
             binding.apply {
+                val householdAccountBook = householdAccountBookList[position]
+
                 // 種類のアイコン
                 householdAccountBook.type?.let {
                     iconImageView.setImageResource(it.drawableResId)
@@ -93,11 +93,11 @@ class HouseholdAccountBookListAdapter(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        return ViewHolder(binding, listener)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(householdAccountBookList[position])
+        holder.bind(position)
     }
 
     /**

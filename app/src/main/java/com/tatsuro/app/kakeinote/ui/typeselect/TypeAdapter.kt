@@ -31,21 +31,20 @@ class TypeAdapter(
     /**
      * 種類選択ボタンのビューホルダ
      * @property binding 種類項目のビューバインディング
-     * @property listener 種類選択ボタンのクリックリスナ
      */
-    class ViewHolder(
-        private val binding: TypeItemBinding,
-        private val listener: OnItemClickListener
+    inner class ViewHolder(
+        private val binding: TypeItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * ビューバインド
          *
-         * 種類選択ボタンと引数[type]をバインドする。
-         * @param type 収支の種類
+         * 種類選択ボタンと[types]のバインド対象をバインドする。
+         * @param position バインド対象の位置
          */
-        fun bind(type: IncomeOrExpenseType) {
+        fun bind(position: Int) {
             binding.textButton.apply {
+                val type = types[position]
                 setIconResource(type.drawableResId)
                 setText(type.strResId)
                 setOnClickListener {
@@ -60,11 +59,11 @@ class TypeAdapter(
             LayoutInflater.from(parent.context),
             parent,
             false)
-        return ViewHolder(binding, listener)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(types[position])
+        holder.bind(position)
     }
 
     /**
