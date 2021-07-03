@@ -15,6 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:icon="@drawable/ic_icooon_mono_food_24"
-        tools:text="@string/food_expense"/>
+        tools:text="@string/food_expense" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
