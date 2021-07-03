@@ -75,7 +75,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
 
     // AndroidX
-    implementation("androidx.core:core-ktx:1.5.0")
+    implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.fragment:fragment-ktx:1.3.5")
@@ -99,15 +99,15 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0")
 
     // Flipper
-    debugImplementation("com.facebook.flipper:flipper:0.93.0")
+    debugImplementation("com.facebook.flipper:flipper:0.96.1")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.93.0")
-    releaseImplementation("com.facebook.flipper:flipper-noop:0.93.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.96.1")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.96.1")
 
     implementation("com.orhanobut:logger:2.2.0")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }
