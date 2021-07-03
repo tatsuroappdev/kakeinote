@@ -10,15 +10,37 @@ import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookHeaderBinding
 import java.time.DayOfWeek
 import java.time.LocalDate
 
+/**
+ * 家計簿ヘッダのアダプタ
+ *
+ * 家計簿ヘッダは日毎に表示する。
+ * 家計簿ヘッダには、日、曜日、そしてその日の収入額と支出額を表示する。
+ * @property date ヘッダに表示する日付
+ * @property incomeAmount ヘッダに表示する収入額
+ * @property expenseAmount ヘッダに表示する支出額
+ */
 class HouseholdAccountBookHeaderAdapter(
     private val date: LocalDate,
     private val incomeAmount: Int,
     private val expenseAmount: Int
 ) :  RecyclerView.Adapter<HouseholdAccountBookHeaderAdapter.ViewHolder>() {
 
+    /**
+     * 家計簿ヘッダのビューホルダ
+     * @property binding 家計簿ヘッダのビューバインディング
+     */
     class ViewHolder(
         private val binding: HouseholdAccountBookHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        /**
+         * ビューバインド
+         *
+         * ヘッダのビューに、日、曜日、そしてその日の収入額と支出額をバインドする。
+         * @param date ヘッダに表示する日付
+         * @param incomeAmount ヘッダに表示する収入額
+         * @param expenseAmount ヘッダに表示する支出額
+         */
         fun bind(date: LocalDate, incomeAmount: Int, expenseAmount: Int) {
             binding.apply {
                 val context = App.applicationContext
@@ -57,5 +79,9 @@ class HouseholdAccountBookHeaderAdapter(
         holder.bind(date, incomeAmount, expenseAmount)
     }
 
+    /**
+     * 家計簿ヘッダは項目が1つしかないので、必ず1を返す。
+     * @return 1を返す。
+     */
     override fun getItemCount() = 1
 }

@@ -10,6 +10,7 @@ import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
 import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment
 
+/** メインアクティビティ */
 class MainActivity : AppCompatActivity(),
     HouseholdAccountBookFragment.OnWriteButtonClickListener,
     HouseholdAccountBookFragment.OnItemClickListener {
@@ -25,11 +26,13 @@ class MainActivity : AppCompatActivity(),
         setupWithNavController(binding.bottomNavigation, navController)
     }
 
+    /** 書き込むボタンのクリックイベント */
     override fun onWriteButtonClick() {
         val intent = Intent(this, DetailsActivity::class.java)
         startActivity(intent)
     }
 
+    /** 家計簿リスト項目のクリックイベント */
     override fun onItemClick(id: Int) {
         TODO("Not yet implemented")
     }

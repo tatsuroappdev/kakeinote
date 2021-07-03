@@ -23,22 +23,28 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
         fun onWriteButtonClick()
     }
 
-    /** 家計簿リストの行がクリックされたときに呼び出されるコールバックのためのインターフェース定義 */
+    /** 家計簿リスト項目がクリックされたときに呼び出されるコールバックのためのインターフェース定義 */
     interface OnItemClickListener {
 
         /**
-         * 家計簿リストの行がクリックされたときに呼び出される。
+         * 家計簿リスト項目がクリックされたときに呼び出される。
          * @param id クリックされた家計簿ID
          */
         fun onItemClick(id: Int)
     }
 
+    /** 家計簿ビューモデル */
     private val viewModel: HouseholdAccountBookViewModel by viewModels()
 
+    /** 書き込むボタンのクリックリスナ */
     private lateinit var onWriteButtonClickListener: OnWriteButtonClickListener
 
+    /** 家計簿リスト項目のクリックリスナ */
     private lateinit var onItemClickListener: OnItemClickListener
 
+    /**
+     * 引数[context]にオーバーライドされているクリックイベントメソッドをクリックリスナに設定する。
+     */
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -89,7 +95,7 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
 
                 // 日毎の家計簿本体
                 concatAdapter.addAdapter(
-                    HouseholdAccountBookBodyAdapter(dailyHouseholdAccountBook) {
+                    HouseholdAccountBookListAdapter(dailyHouseholdAccountBook) {
                         onItemClickListener.onItemClick(it)
                     }
                 )
