@@ -9,10 +9,10 @@ import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.database.HouseholdAccountBook
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookItemBinding
 
-class HouseholdAccountBookBodyAdapter(
+class HouseholdAccountBookListAdapter(
     private val householdAccountBookList: List<HouseholdAccountBook>,
     private val listener: OnItemClickListener
-) : RecyclerView.Adapter<HouseholdAccountBookBodyAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<HouseholdAccountBookListAdapter.ViewHolder>() {
 
     fun interface OnItemClickListener {
         fun onItemClick(id: Int)

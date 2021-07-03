@@ -89,7 +89,7 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
 
                 // 日毎の家計簿本体
                 concatAdapter.addAdapter(
-                    HouseholdAccountBookBodyAdapter(dailyHouseholdAccountBook) {
+                    HouseholdAccountBookListAdapter(dailyHouseholdAccountBook) {
                         onItemClickListener.onItemClick(it)
                     }
                 )
