@@ -1,4 +1,4 @@
-package com.tatsuro.app.kakeinote.ui.householdaccountbook
+package com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -29,7 +29,7 @@ class HouseholdAccountBookHeaderAdapter(
      * 家計簿ヘッダのビューホルダ
      * @property binding 家計簿ヘッダのビューバインディング
      */
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: HouseholdAccountBookHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -37,11 +37,8 @@ class HouseholdAccountBookHeaderAdapter(
          * ビューバインド
          *
          * ヘッダのビューに、日、曜日、そしてその日の収入額と支出額をバインドする。
-         * @param date ヘッダに表示する日付
-         * @param incomeAmount ヘッダに表示する収入額
-         * @param expenseAmount ヘッダに表示する支出額
          */
-        fun bind(date: LocalDate, incomeAmount: Int, expenseAmount: Int) {
+        fun bind() {
             binding.apply {
                 val context = App.applicationContext
                 val dayOfWeek = context.resources
@@ -76,7 +73,7 @@ class HouseholdAccountBookHeaderAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(date, incomeAmount, expenseAmount)
+        holder.bind()
     }
 
     /**

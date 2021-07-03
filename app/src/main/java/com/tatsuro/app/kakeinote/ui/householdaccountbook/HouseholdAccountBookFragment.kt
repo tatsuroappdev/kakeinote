@@ -12,6 +12,8 @@ import com.orhanobut.logger.Logger
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookFragmentBinding
+import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookHeaderAdapter
+import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookListAdapter
 
 /** 家計簿フラグメント */
 class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fragment) {
@@ -91,7 +93,8 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
                     .sum()
                 concatAdapter.addAdapter(
                     HouseholdAccountBookHeaderAdapter(
-                        date, dailyIncomeAmountSum, dailyExpenseAmountSum))
+                        date, dailyIncomeAmountSum, dailyExpenseAmountSum)
+                )
 
                 // 日毎の家計簿本体
                 concatAdapter.addAdapter(
