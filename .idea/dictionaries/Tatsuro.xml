@@ -2,7 +2,13 @@
   <dictionary name="Tatsuro">
     <words>
       <w>androiddebugkey</w>
+      <w>appname</w>
+      <w>bottomsheetdialogfragmentsample</w>
+      <w>canidropjetifier</w>
       <w>constraintlayout</w>
+      <w>dorg</w>
+      <w>endlocal</w>
+      <w>errorlevel</w>
       <w>householdaccountbook</w>
       <w>icooon</w>
       <w>jetbrains</w>
@@ -13,10 +19,14 @@
       <w>leakcanary</w>
       <w>livedata</w>
       <w>orhanobut</w>
+      <w>pandroid</w>
+      <w>plnice</w>
+      <w>setlocal</w>
       <w>snackbar</w>
       <w>soloader</w>
       <w>squareup</w>
       <w>tatsuro</w>
+      <w>typeselect</w>
       <w>unelevated</w>
       <w>upsert</w>
       <w>viewmodel</w>
