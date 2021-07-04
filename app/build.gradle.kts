@@ -4,6 +4,11 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+
+    // 以下のコマンドにより、Support Libraryへの参照がないことを確認し、安全にJetifierを無効化できる。
+    // ただし、バージョン0.5ではGradle7.0以降に対応していない。
+    // ./gradlew -Pandroid.enableJetifier=false canIDropJetifier
+    id("com.github.plnice.canidropjetifier") version "0.5"
 }
 
 android {
