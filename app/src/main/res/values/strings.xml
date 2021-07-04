@@ -77,8 +77,4 @@
     <string name="electricity">電気</string>
     <string name="communication">通信</string>
     <string name="tax">税金</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_search_fragment">Hello search fragment</string>
-    <string name="hello_other_fragment">Hello other fragment</string>
 </resources>
