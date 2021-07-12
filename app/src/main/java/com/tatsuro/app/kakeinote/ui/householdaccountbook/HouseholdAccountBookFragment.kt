@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orhanobut.logger.Logger
 import com.tatsuro.app.kakeinote.R
+import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookFragmentBinding
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookHeaderAdapter
@@ -53,15 +54,13 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
         if (context is OnWriteButtonClickListener) {
             onWriteButtonClickListener = context
         } else {
-            // TODO:要実装
-            error("")
+            error(ErrorMessages.DO_NOT_INHERIT_ON_WRITE_BUTTON_CLICK_LISTENER)
         }
 
         if (context is OnItemClickListener) {
             onItemClickListener = context
         } else {
-            // TODO:要実装
-            error("")
+            error(ErrorMessages.DO_NOT_INHERIT_ON_ITEM_CLICK_LISTENER)
         }
     }
 

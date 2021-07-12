@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.tatsuro.app.kakeinote.R
+import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
 import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment
@@ -21,7 +22,12 @@ class MainActivity : AppCompatActivity(),
         setContentView(binding.root)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+
+        if (navHostFragment !is NavHostFragment) {
+            error(ErrorMessages.FAILED_TO_CAST_NAV_HOST_FRAGMENT)
+        }
+
         val navController = navHostFragment.navController
         setupWithNavController(binding.bottomNavigation, navController)
     }
