@@ -114,6 +114,7 @@ class App : Application() {
      *
      * 有効にするプラグインは以下とする。
      * - InspectorFlipperPlugin
+     * - DatabasesFlipperPlugin
      * - LeakCanary2FlipperPlugin
      */
     private fun initFlipper() {
