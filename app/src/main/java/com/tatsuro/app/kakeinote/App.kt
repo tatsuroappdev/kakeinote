@@ -2,8 +2,10 @@ package com.tatsuro.app.kakeinote
 
 import android.app.Application
 import android.content.Context
+import android.os.StrictMode
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.strictmode.FragmentStrictMode
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.databases.DatabasesFlipperPlugin
@@ -49,8 +51,43 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initStrictMode()
         initLogger()
         initFlipper()
+    }
+
+    /** StrictModeを初期化する。 */
+    private fun initStrictMode() {
+        if (!BuildConfig.DEBUG) {
+            return
+        }
+
+        // ネットワークにはアクセスしないため、ネットワーク操作の検出を行わない。
+        val threadPolicy = StrictMode.ThreadPolicy.Builder()
+            .detectDiskReads()
+            .detectDiskWrites()
+            .penaltyLog()
+            .build()
+        StrictMode.setThreadPolicy(threadPolicy)
+
+        val vmPolicy = StrictMode.VmPolicy.Builder()
+            .detectActivityLeaks()
+            .detectLeakedClosableObjects()
+            .detectLeakedSqlLiteObjects()
+            .penaltyLog()
+            .build()
+        StrictMode.setVmPolicy(vmPolicy)
+
+        val fragmentPolicy = FragmentStrictMode.Policy.Builder()
+            .detectFragmentReuse()
+            .detectFragmentTagUsage()
+            .detectRetainInstanceUsage()
+            .detectSetUserVisibleHint()
+            .detectTargetFragmentUsage()
+            .detectWrongFragmentContainer()
+            .penaltyLog()
+            .build()
+        FragmentStrictMode.setDefaultPolicy(fragmentPolicy)
     }
 
     /**
