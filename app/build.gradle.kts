@@ -101,7 +101,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.3.0")
     kapt("androidx.room:room-compiler:2.3.0")
 
-    implementation("com.google.android.material:material:1.3.0")
+    implementation("com.google.android.material:material:1.4.0")
 
     // Flipper
     debugImplementation("com.facebook.flipper:flipper:0.96.1")
