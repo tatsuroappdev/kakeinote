@@ -9,8 +9,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
-import com.tatsuro.app.kakeinote.constant.ErrorMessages.VIEW_BINDING_NOT_BOUND
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.TypeSelectBottomSheetBinding
 
@@ -43,18 +43,13 @@ class TypeSelectBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    private var _binding: TypeSelectBottomSheetBinding? = null
-    private val binding get() = _binding ?: error(VIEW_BINDING_NOT_BOUND)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = TypeSelectBottomSheetBinding.inflate(inflater)
-        return binding.root
-    }
+    ): View = inflater.inflate(R.layout.type_select_bottom_sheet, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = TypeSelectBottomSheetBinding.bind(view)
 
         val incomeOrExpense = requireArguments().getSerializable(ARG_INCOME_OR_EXPENSE)
         val requestKey = requireArguments().getString(ARG_REQUEST_KEY)
@@ -85,10 +80,5 @@ class TypeSelectBottomSheet : BottomSheetDialogFragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

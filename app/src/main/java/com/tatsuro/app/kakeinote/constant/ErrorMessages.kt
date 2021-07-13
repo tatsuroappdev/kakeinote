@@ -23,10 +23,6 @@ object ErrorMessages {
     const val DATA_BINDING_NOT_BOUND =
         "The data binding is not bound."
 
-    /** ビューバインディングがバインドされていない。 */
-    const val VIEW_BINDING_NOT_BOUND =
-        "The view binding is not bound."
-
     /** プロパティviewModelは初期化されていない。 */
     const val VIEW_MODEL_NOT_INITIALIZED =
         "The property viewModel is not initialized."
