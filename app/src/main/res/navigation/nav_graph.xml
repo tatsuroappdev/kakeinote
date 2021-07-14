@@ -11,7 +11,7 @@
         android:name=
             "com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment"
         android:label=
-            "household_account_book_fragment"
+            "@string/household_account_book"
         tools:layout=
             "@layout/household_account_book_fragment" />
 
@@ -21,7 +21,7 @@
         android:name=
             "com.tatsuro.app.kakeinote.ui.search.SearchFragment"
         android:label=
-            "search_fragment"
+            "@string/search"
         tools:layout=
             "@layout/search_fragment" />
 
@@ -31,7 +31,7 @@
         android:name=
             "com.tatsuro.app.kakeinote.ui.other.OtherFragment"
         android:label=
-            "other_fragment"
+            "@string/other"
         tools:layout=
             "@layout/other_fragment" />
 
