@@ -68,6 +68,15 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
         super.onViewCreated(view, savedInstanceState)
         val binding = HouseholdAccountBookFragmentBinding.bind(view)
 
+        binding.apply {
+            TooltipCompat.setTooltipText(
+                writeButton, getString(R.string.show_new_write_activity))
+
+            writeButton.setOnClickListener {
+                onWriteButtonClickListener.onWriteButtonClick()
+            }
+        }
+
         viewModel.householdAccountBook.observe(viewLifecycleOwner) { householdAccountBookList ->
             Logger.d(householdAccountBookList)
 
@@ -103,18 +112,9 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
                 )
             }
 
-            binding.apply {
-                householdAccountBookRecyclerView.apply {
-                    layoutManager = LinearLayoutManager(requireContext())
-                    adapter = concatAdapter
-                }
-
-                TooltipCompat.setTooltipText(
-                    writeButton, getString(R.string.show_new_write_activity))
-
-                writeButton.setOnClickListener {
-                    onWriteButtonClickListener.onWriteButtonClick()
-                }
+            binding.householdAccountBookRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = concatAdapter
             }
         }
     }
