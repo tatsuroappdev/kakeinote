@@ -19,6 +19,10 @@ object ErrorMessages {
     const val DO_NOT_INHERIT_ON_ITEM_CLICK_LISTENER =
         "The context doesn't inherit OnItemClickListener."
 
+    /** プロパティselectedYearMonthは初期化されていない。 */
+    const val SELECTED_YEAR_MONTH_NOT_INITIALIZED =
+        "The property selectedYearMonth is not initialized."
+
     /** データバインディングがバインドされていない。 */
     const val DATA_BINDING_NOT_BOUND =
         "The data binding is not bound."

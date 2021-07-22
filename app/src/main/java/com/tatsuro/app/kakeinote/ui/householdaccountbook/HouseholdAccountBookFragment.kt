@@ -6,6 +6,9 @@ import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orhanobut.logger.Logger
@@ -69,12 +72,28 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
         val binding = HouseholdAccountBookFragmentBinding.bind(view)
 
         binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+
+            val navController = findNavController()
+            val appBarConfig = AppBarConfiguration(navController.graph)
+
+            toolbar.setupWithNavController(navController, appBarConfig)
+
             TooltipCompat.setTooltipText(
-                writeButton, getString(R.string.show_new_write_activity))
+                prevMonthButton, getString(R.string.previous_month)
+            )
+            TooltipCompat.setTooltipText(
+                nextMonthButton, getString(R.string.next_month)
+            )
+            TooltipCompat.setTooltipText(
+                writeButton, getString(R.string.show_new_write_activity)
+            )
 
             writeButton.setOnClickListener {
                 onWriteButtonClickListener.onWriteButtonClick()
             }
+        }.also {
+            it.viewModel = viewModel
         }
 
         viewModel.householdAccountBook.observe(viewLifecycleOwner) { householdAccountBookList ->

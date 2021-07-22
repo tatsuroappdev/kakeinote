@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
@@ -22,14 +22,15 @@ class MainActivity : AppCompatActivity(),
         setContentView(binding.root)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            supportFragmentManager.findFragmentById(R.id.navHostFragment)
 
         if (navHostFragment !is NavHostFragment) {
             error(ErrorMessages.FAILED_TO_CAST_NAV_HOST_FRAGMENT)
         }
 
         val navController = navHostFragment.navController
-        setupWithNavController(binding.bottomNavigation, navController)
+
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 
     /** 書き込むボタンのクリックイベント */

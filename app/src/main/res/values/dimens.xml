@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="in_toolbar_padding">16dp</dimen>
+    <dimen name="in_toolbar_textSize">20sp</dimen>
     <dimen name="household_account_book_item_distance">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="main_padding">16dp</dimen>

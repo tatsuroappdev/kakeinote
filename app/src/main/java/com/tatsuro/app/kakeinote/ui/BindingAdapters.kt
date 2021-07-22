@@ -1,6 +1,7 @@
 package com.tatsuro.app.kakeinote.ui
 
 import android.widget.EditText
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.tatsuro.app.kakeinote.App
 import com.tatsuro.app.kakeinote.R
@@ -13,9 +14,25 @@ import java.time.LocalTime
 object BindingAdapters {
 
     /**
+     * [LocalDate]型日付から年月を取り出し、[TextView]に設定する。
+     * @param textView 設定先の[TextView]
+     * @param date [TextView]に設定する年月を取り出す。
+     */
+    @BindingAdapter("yearMonth")
+    @JvmStatic
+    fun dateToYearMonthString(textView: TextView, date: LocalDate) {
+        val context = App.applicationContext
+        textView.text = context.getString(
+            R.string.formatted_year_month,
+            date.year,
+            date.monthValue
+        )
+    }
+
+    /**
      * [LocalDate]型日付を[String]型に変換して、[EditText]に設定する。
      * @param editText 設定先の[EditText]
-     * @param date [EditText]に表示する日付
+     * @param date [EditText]に設定する日付
      */
     @BindingAdapter("date")
     @JvmStatic
@@ -28,7 +45,8 @@ object BindingAdapters {
             date.year,
             date.monthValue,
             date.dayOfMonth,
-            dayOfWeek))
+            dayOfWeek
+        ))
     }
 
     /**
