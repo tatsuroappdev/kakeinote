@@ -18,7 +18,7 @@ class HouseholdAccountBookViewModel(application: Application) : AndroidViewModel
 
     /** DAO */
     private val dao = AppDatabase
-        .getInstance(application.applicationContext)
+        .getInstance(application)
         .dao()
 
     /** 選択年月の家計簿 */
