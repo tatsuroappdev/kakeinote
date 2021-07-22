@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "com.tatsuro.app.kakeinote"
-        minSdkVersion(24)
+        minSdkVersion(21)
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
@@ -104,10 +104,10 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
 
     // Flipper
-    debugImplementation("com.facebook.flipper:flipper:0.96.1")
+    debugImplementation("com.facebook.flipper:flipper:0.98.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.96.1")
-    releaseImplementation("com.facebook.flipper:flipper-noop:0.96.1")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.98.0")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.98.0")
 
     implementation("com.orhanobut:logger:2.2.0")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
