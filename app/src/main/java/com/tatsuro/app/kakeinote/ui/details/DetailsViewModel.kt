@@ -50,7 +50,7 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
 
     /** DAO */
     private val dao = AppDatabase
-        .getInstance(application.applicationContext)
+        .getInstance(application)
         .dao()
 
     /** 家計簿の初期化する。 */

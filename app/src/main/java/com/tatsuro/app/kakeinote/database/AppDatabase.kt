@@ -1,6 +1,6 @@
 package com.tatsuro.app.kakeinote.database
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -24,13 +24,13 @@ abstract class AppDatabase : RoomDatabase() {
 
         /**
          * データベースインスタンスを返す。
-         * @param context コンテキスト
+         * @param application アプリケーション
          * @return データベースインスタンス
          */
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(application: Application): AppDatabase {
             synchronized(lock) {
                 if (instance == null) {
-                    instance = Room.databaseBuilder(context.applicationContext,
+                    instance = Room.databaseBuilder(application.applicationContext,
                         AppDatabase::class.java, "AppDatabase.db")
                         .build()
                 }
