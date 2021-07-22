@@ -10,8 +10,6 @@
             "@+id/household_account_book_fragment"
         android:name=
             "com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment"
-        android:label=
-            "@string/household_account_book"
         tools:layout=
             "@layout/household_account_book_fragment" />
 

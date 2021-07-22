@@ -5,6 +5,10 @@
     <string name="household_account_book">家計簿</string>
     <string name="search">検索</string>
     <string name="other">その他</string>
+    <string name="previous_month">前月</string>
+    <string name="next_month">次月</string>
+    <string name="show_previous_month_household_accounting_book">前月の家計簿を表示します</string>
+    <string name="show_next_month_household_accounting_book">次月の家計簿を表示します</string>
     <string name="income">収入</string>
     <string name="expense">支出</string>
     <string name="write">書き込む</string>

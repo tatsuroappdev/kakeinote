@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
@@ -31,16 +30,7 @@ class MainActivity : AppCompatActivity(),
 
         val navController = navHostFragment.navController
 
-        val appBarConfig = AppBarConfiguration(setOf(
-            R.id.household_account_book_fragment,
-            R.id.search_fragment,
-            R.id.other_fragment
-        ))
-
-        binding.apply {
-            toolbar.setupWithNavController(navController, appBarConfig)
-            bottomNavigation.setupWithNavController(navController)
-        }
+        binding.bottomNavigation.setupWithNavController(navController)
     }
 
     /** 書き込むボタンのクリックイベント */
