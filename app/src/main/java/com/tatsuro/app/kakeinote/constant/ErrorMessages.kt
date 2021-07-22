@@ -3,10 +3,6 @@ package com.tatsuro.app.kakeinote.constant
 /** 関数[error]に渡すエラーメッセージ */
 object ErrorMessages {
 
-    /** アプリケーションインスタンスが取得されていない。 */
-    const val APPLICATION_INSTANCE_NOT_GOTTEN =
-        "The application instance is not gotten."
-
     /** NavHostFragmentへのキャストに失敗した。 */
     const val FAILED_TO_CAST_NAV_HOST_FRAGMENT =
         "Failed to cast to NavHostFragment."
