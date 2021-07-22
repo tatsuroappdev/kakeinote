@@ -20,6 +20,8 @@
         <item>土</item>
         <item>日</item>
     </string-array>
+    <!-- %1$d: 年, %2$d: 月 -->
+    <string name="formatted_year_month">%1$d年%2$d月</string>
     <!-- %1$d: 日 -->
     <string name="formatted_day">%1$d日</string>
     <!-- %1$s: 曜日 -->
