@@ -1,9 +1,7 @@
 package com.tatsuro.app.kakeinote.ui.householdaccountbook
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.database.AppDatabase
 import java.time.LocalDate
@@ -12,15 +10,22 @@ import java.time.LocalDate
 class HouseholdAccountBookViewModel(application: Application) : AndroidViewModel(application) {
 
     /** 選択年月（内部書き込み向け） */
-    private val _selectedYearMonth = MutableLiveData(LocalDate.now())
+    private val _selectedYearMonth =
+        MutableLiveData(LocalDate.now().withDayOfMonth(1))
 
     /** 選択年月 */
     val selectedYearMonth: LiveData<LocalDate> get() = _selectedYearMonth
 
-    val householdAccountBook = AppDatabase
+    /** DAO */
+    private val dao = AppDatabase
         .getInstance(application.applicationContext)
         .dao()
-        .selectAtLiveData()
+
+    /** 選択年月の家計簿 */
+    val householdAccountBook = selectedYearMonth.switchMap { start ->
+        val end = start.plusMonths(1)
+        dao.select(start, end)
+    }
 
     /** 前月ボタンのクリックイベント */
     fun onPrevMonthButtonClick() {
