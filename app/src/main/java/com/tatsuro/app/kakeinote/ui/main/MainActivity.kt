@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(),
         setContentView(binding.root)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            supportFragmentManager.findFragmentById(R.id.navHostFragment)
 
         if (navHostFragment !is NavHostFragment) {
             error(ErrorMessages.FAILED_TO_CAST_NAV_HOST_FRAGMENT)
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(),
 
         val navController = navHostFragment.navController
 
-        binding.bottomNavigation.setupWithNavController(navController)
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 
     /** 書き込むボタンのクリックイベント */
