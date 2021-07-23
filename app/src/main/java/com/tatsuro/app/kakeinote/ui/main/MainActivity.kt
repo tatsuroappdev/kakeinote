@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity(),
                         BottomNavigationViewAdapter.HOUSEHOLD_ACCOUNT_BOOK_FRAGMENT_ID
                     R.id.searchFragment ->
                         BottomNavigationViewAdapter.SEARCH_FRAGMENT_ID
-                    R.id.miscFragment ->
-                        BottomNavigationViewAdapter.MISC_FRAGMENT_ID
+                    R.id.miscBaseFragment ->
+                        BottomNavigationViewAdapter.MISC_BASE_FRAGMENT_ID
                     else -> error(ErrorMessages.INVALID_ITEM_SELECTED)
                 }
 

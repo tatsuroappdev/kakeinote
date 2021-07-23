@@ -1,6 +1,13 @@
 package com.tatsuro.app.kakeinote.ui.misc
 
-import androidx.fragment.app.Fragment
+import android.os.Bundle
+import androidx.preference.PreferenceFragmentCompat
 import com.tatsuro.app.kakeinote.R
 
-class MiscFragment : Fragment(R.layout.misc_fragment)
+/** その他フラグメント */
+class MiscFragment : PreferenceFragmentCompat() {
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.preferences, rootKey)
+    }
+}
