@@ -3,10 +3,6 @@ package com.tatsuro.app.kakeinote.constant
 /** 関数[error]に渡すエラーメッセージ */
 object ErrorMessages {
 
-    /** NavHostFragmentへのキャストに失敗した。 */
-    const val FAILED_TO_CAST_NAV_HOST_FRAGMENT =
-        "Failed to cast to NavHostFragment."
-
     /** コンテキストはOnWriteButtonClickListenerを継承していない。 */
     const val DO_NOT_INHERIT_ON_WRITE_BUTTON_CLICK_LISTENER =
         "The context doesn't inherit OnWriteButtonClickListener."

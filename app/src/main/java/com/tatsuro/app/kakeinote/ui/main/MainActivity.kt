@@ -3,10 +3,7 @@ package com.tatsuro.app.kakeinote.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.tatsuro.app.kakeinote.R
-import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
 import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment
@@ -21,16 +18,32 @@ class MainActivity : AppCompatActivity(),
         val binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navHostFragment)
+        // BottomNavigationViewにてフラグメントを切り替えると、切り替えの度にフラグメントが再生成される。
+        // よって、ViewPager2にフラグメント切り替えを管理させる。
+        binding.apply {
+            viewPager2.apply {
+                adapter = BottomNavigationViewAdapter(this@MainActivity)
+                isUserInputEnabled = false
+            }
 
-        if (navHostFragment !is NavHostFragment) {
-            error(ErrorMessages.FAILED_TO_CAST_NAV_HOST_FRAGMENT)
+            // BottomNavigationViewのアイコンが選択されたとき、ViewPager2のフラグメントを切り替える。
+            bottomNavigationView.setOnItemSelectedListener { item ->
+                val currentItem = when(item.itemId) {
+                    R.id.household_account_book_fragment ->
+                        BottomNavigationViewAdapter.HOUSEHOLD_ACCOUNT_BOOK_FRAGMENT_ID
+                    R.id.search_fragment ->
+                        BottomNavigationViewAdapter.SEARCH_FRAGMENT_ID
+                    R.id.other_fragment ->
+                        BottomNavigationViewAdapter.OTHER_FRAGMENT_ID
+                    else -> error("")
+                }
+
+                viewPager2.setCurrentItem(currentItem, false)
+
+                // 選択されたことをBottomNavigationViewの表示に反映するため、trueを返す。
+                return@setOnItemSelectedListener true
+            }
         }
-
-        val navController = navHostFragment.navController
-
-        binding.bottomNavigationView.setupWithNavController(navController)
     }
 
     /** 書き込むボタンのクリックイベント */
