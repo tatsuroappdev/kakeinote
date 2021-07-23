@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(),
         val binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // BottomNavigationViewにてフラグメントを切り替えると、切り替えの度にフラグメントが再生成される。
+        // Navigationコンポーネントにてフラグメントを切り替えると、切り替えの度にフラグメントが再生成される。
         // よって、ViewPager2にフラグメント切り替えを管理させる。
         binding.apply {
             viewPager2.apply {
