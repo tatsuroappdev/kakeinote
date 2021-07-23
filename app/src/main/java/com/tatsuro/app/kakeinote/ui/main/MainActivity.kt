@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tatsuro.app.kakeinote.R
+import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
 import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity(),
                         BottomNavigationViewAdapter.SEARCH_FRAGMENT_ID
                     R.id.other_fragment ->
                         BottomNavigationViewAdapter.OTHER_FRAGMENT_ID
-                    else -> error("")
+                    else -> error(ErrorMessages.INVALID_ITEM_SELECTED)
                 }
 
                 viewPager2.setCurrentItem(currentItem, false)

@@ -3,6 +3,14 @@ package com.tatsuro.app.kakeinote.constant
 /** 関数[error]に渡すエラーメッセージ */
 object ErrorMessages {
 
+    /** 無効な項目が選択されている。 */
+    const val INVALID_ITEM_SELECTED =
+        "The invalid item is selected."
+
+    /** 無効なフラグメントが選択されている。 */
+    const val INVALID_FRAGMENT_SELECTED =
+        "The invalid fragment is selected."
+
     /** コンテキストはOnWriteButtonClickListenerを継承していない。 */
     const val DO_NOT_INHERIT_ON_WRITE_BUTTON_CLICK_LISTENER =
         "The context doesn't inherit OnWriteButtonClickListener."
