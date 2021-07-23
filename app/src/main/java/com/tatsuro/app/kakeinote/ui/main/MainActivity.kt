@@ -30,11 +30,11 @@ class MainActivity : AppCompatActivity(),
             // BottomNavigationViewのアイコンが選択されたとき、ViewPager2のフラグメントを切り替える。
             bottomNavigationView.setOnItemSelectedListener { item ->
                 val currentItem = when(item.itemId) {
-                    R.id.household_account_book_fragment ->
+                    R.id.householdAccountBookFragment ->
                         BottomNavigationViewAdapter.HOUSEHOLD_ACCOUNT_BOOK_FRAGMENT_ID
-                    R.id.search_fragment ->
+                    R.id.searchFragment ->
                         BottomNavigationViewAdapter.SEARCH_FRAGMENT_ID
-                    R.id.other_fragment ->
+                    R.id.otherFragment ->
                         BottomNavigationViewAdapter.OTHER_FRAGMENT_ID
                     else -> error(ErrorMessages.INVALID_ITEM_SELECTED)
                 }
