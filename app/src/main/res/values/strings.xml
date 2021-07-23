@@ -4,7 +4,7 @@
     <string name="app_name_short">かけい</string>
     <string name="household_account_book">家計簿</string>
     <string name="search">検索</string>
-    <string name="other">その他</string>
+    <string name="misc">その他</string>
     <string name="previous_month">前月</string>
     <string name="next_month">次月</string>
     <string name="show_previous_month_household_accounting_book">前月の家計簿を表示します</string>
@@ -54,7 +54,10 @@
     <string name="write_income_or_expense">%1$s %2$s %3$d を書き込みました</string>
     <string name="ok">OK</string>
 
-    <!-- 収入 -->
+    <!-- 収支の種類 共通 -->
+    <string name="other">その他</string>
+
+    <!-- 収支の種類 収入 -->
     <string name="salary">給料</string>
     <string name="pension">年金</string>
     <string name="remittance">仕送り</string>
@@ -66,7 +69,7 @@
     <string name="investment_income">投資収入</string>
     <string name="sale_income">売却収入</string>
 
-    <!-- 支出 -->
+    <!-- 収支の種類 支出 -->
     <string name="food_expense">食費</string>
     <string name="leisure">レジャー</string>
     <string name="entertainment">交際</string>
