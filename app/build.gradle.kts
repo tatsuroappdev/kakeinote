@@ -81,9 +81,9 @@ dependencies {
 
     // AndroidX
     implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.fragment:fragment-ktx:1.4.0-alpha04")
+    implementation("androidx.fragment:fragment-ktx:1.4.0-alpha05")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("androidx.preference:preference:1.1.1")
