@@ -12,8 +12,8 @@
         android:title="@string/search" />
 
     <item
-        android:id="@+id/otherFragment"
+        android:id="@+id/miscBaseFragment"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="@string/other" />
+        android:title="@string/misc" />
 
 </menu>
