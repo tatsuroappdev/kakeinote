@@ -68,7 +68,7 @@ class HouseholdAccountBookListAdapter(
                 // 金額
                 val amountOfMoneyText = "¥ %,d".format(householdAccountBook.amountOfMoney)
 
-                val textColor: Int = when(householdAccountBook.incomeOrExpense) {
+                val textColor: Int = when (householdAccountBook.incomeOrExpense) {
                     IncomeOrExpense.INCOME -> {
                         App.getColor(R.color.blue)
                     }

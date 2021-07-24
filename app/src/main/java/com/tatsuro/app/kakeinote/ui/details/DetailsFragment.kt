@@ -234,7 +234,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         val expenseButtonColor: Int
         val incomeButtonColor: Int
 
-        when(householdAccountBook.incomeOrExpense) {
+        when (householdAccountBook.incomeOrExpense) {
             IncomeOrExpense.INCOME -> {
                 expenseButtonColor = R.color.translucent_red
                 incomeButtonColor = R.color.blue

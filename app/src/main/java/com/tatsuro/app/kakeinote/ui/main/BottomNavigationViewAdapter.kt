@@ -25,7 +25,7 @@ class BottomNavigationViewAdapter(
 
     override fun getItemCount() = 3
 
-    override fun createFragment(position: Int) = when(position) {
+    override fun createFragment(position: Int) = when (position) {
         HOUSEHOLD_ACCOUNT_BOOK_FRAGMENT_ID -> HouseholdAccountBookFragment()
         SEARCH_FRAGMENT_ID -> SearchFragment()
         MISC_BASE_FRAGMENT_ID -> MiscBaseFragment()

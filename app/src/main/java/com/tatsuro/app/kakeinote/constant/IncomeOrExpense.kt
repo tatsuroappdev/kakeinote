@@ -16,7 +16,7 @@ enum class IncomeOrExpense(val strResId: Int) {
 
     /** 収支の種類の配列 */
     val incomeOrExpenseTypes get() =
-        when(this) {
+        when (this) {
             INCOME -> {
                 arrayOf(
                     IncomeOrExpenseType.SALARY,
