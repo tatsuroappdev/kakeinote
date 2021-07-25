@@ -2,7 +2,7 @@
 スマホで家計簿を管理できるAndroidアプリを開発します。
 
 ## 開発環境
-- 言語：Kotlin 1.5.20
+- 言語：Kotlin 1.5.21
 - IDE：Android Studio 4.2.2
 
 ## 画面
@@ -24,7 +24,6 @@
 - RecyclerView
 - LiveData
 - ViewModel
-- Navigation
 - View Binding
 - Data Binding
 - Room
