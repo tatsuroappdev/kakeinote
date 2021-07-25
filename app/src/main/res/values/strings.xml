@@ -11,6 +11,7 @@
     <string name="show_next_month_household_accounting_book">次月の家計簿を表示します</string>
     <string name="income">収入</string>
     <string name="expense">支出</string>
+    <string name="sum">合計</string>
     <string name="write">書き込む</string>
     <string name="show_new_write_activity">新規書き込み画面を表示します</string>
     <string name="new_write">新規書き込み</string>

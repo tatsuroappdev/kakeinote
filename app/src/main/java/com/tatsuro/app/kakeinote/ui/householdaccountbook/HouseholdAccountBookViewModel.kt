@@ -3,6 +3,7 @@ package com.tatsuro.app.kakeinote.ui.householdaccountbook
 import android.app.Application
 import androidx.lifecycle.*
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
+import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.database.AppDatabase
 import java.time.LocalDate
 
@@ -25,6 +26,20 @@ class HouseholdAccountBookViewModel(application: Application) : AndroidViewModel
     val householdAccountBook = selectedYearMonth.switchMap { start ->
         val end = start.plusMonths(1)
         dao.select(start, end)
+    }
+
+    /** 月の収入 */
+    val monthIncome = householdAccountBook.map { list ->
+        list.filter { it.incomeOrExpense == IncomeOrExpense.INCOME }
+            .map { it.amountOfMoney }
+            .sum()
+    }
+
+    /** 月の支出 */
+    val monthExpense = householdAccountBook.map { list ->
+        list.filter { it.incomeOrExpense == IncomeOrExpense.EXPENSE }
+            .map { it.amountOfMoney }
+            .sum()
     }
 
     /** 前月ボタンのクリックイベント */

@@ -84,6 +84,89 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <TextView
+            android:id="@+id/incomeLabelTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin_short"
+            android:gravity="center"
+            android:text="@string/income"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/expenseLabelTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/expenseLabelTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin_short"
+            android:gravity="center"
+            android:text="@string/expense"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/sumLabelTextView"
+            app:layout_constraintStart_toEndOf="@id/incomeLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/sumLabelTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin_short"
+            android:gravity="center"
+            android:text="@string/sum"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/expenseLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/incomeValueTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            app:layout_constraintEnd_toStartOf="@id/expenseValueTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/incomeLabelTextView"
+            app:amountOfMoney="@{viewModel.monthIncome}"
+            tools:text="¥ 999,999,999" />
+
+        <TextView
+            android:id="@+id/expenseValueTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/red"
+            app:layout_constraintEnd_toStartOf="@id/sumValueTextView"
+            app:layout_constraintStart_toEndOf="@id/incomeValueTextView"
+            app:layout_constraintTop_toBottomOf="@id/expenseLabelTextView"
+            app:amountOfMoney="@{viewModel.monthExpense}"
+            tools:text="¥ 999,999,999" />
+
+        <TextView
+            android:id="@+id/sumValueTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/expenseValueTextView"
+            app:layout_constraintTop_toBottomOf="@id/sumLabelTextView"
+            app:income="@{viewModel.monthIncome}"
+            app:expense="@{viewModel.monthExpense}"
+            tools:text="¥ 999,999,999"
+            tools:textColor="@color/blue" />
+
+        <View
+            android:id="@+id/borderlineView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/borderline_height"
+            android:layout_marginTop="@dimen/vertical_margin_short"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/incomeValueTextView" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/householdAccountBookRecyclerView"
             android:layout_width="0dp"
@@ -92,7 +175,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/borderlineView" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/writeButton"
