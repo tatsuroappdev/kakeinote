@@ -13,7 +13,6 @@
     <dimen name="roundButton_cornerRadius">24dp</dimen>
     <dimen name="button_paddingHorizontal">32dp</dimen>
     <dimen name="letterSpacing">0.5</dimen>
-    <!-- TODO:名称変更の影響を確認する。 -->
     <dimen name="vertical_margin_long">12dp</dimen>
     <dimen name="vertical_margin_short">4dp</dimen>
     <dimen name="horizontal_margin_middle">8dp</dimen>
