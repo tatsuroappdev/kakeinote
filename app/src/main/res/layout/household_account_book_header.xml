@@ -87,7 +87,7 @@
         tools:text="¥ 999,999,999" />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/borderline_height"
         android:layout_marginTop="@dimen/vertical_margin_short"
         android:background="@color/black"

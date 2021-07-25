@@ -3,6 +3,7 @@ package com.tatsuro.app.kakeinote
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
+import android.content.res.Resources.NotFoundException
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.strictmode.FragmentStrictMode
@@ -38,7 +39,7 @@ class App : Application() {
          * 引数[id]に紐付く色を返す。
          * @param id 色のリソースID
          * @return 引数[id]に紐付く色
-         * @exception android.content.res.Resources.NotFoundException 引数[id]が存在しない場合に投げられる。
+         * @exception NotFoundException 引数[id]が存在しない場合に投げられる。
          */
         fun getColor(@ColorRes id: Int) = ContextCompat.getColor(instance, id)
     }
