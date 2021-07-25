@@ -55,6 +55,5 @@ class MainActivity : AppCompatActivity(),
 
     /** 家計簿リスト項目のクリックイベント */
     override fun onItemClick(id: Int) {
-        TODO("Not yet implemented")
     }
 }
