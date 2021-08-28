@@ -2,6 +2,7 @@ package com.tatsuro.app.kakeinote.ui.details
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
@@ -14,8 +15,23 @@ import java.time.*
 /** 詳細ビューモデル */
 class DetailsViewModel(application: Application) : AndroidViewModel(application) {
 
+    /** 金額 */
+    val amountOfMoney = MutableLiveData<Int?>()
+
     /** 家計簿 */
-    val householdAccountBook = MutableLiveData(HouseholdAccountBook())
+    val householdAccountBook = MediatorLiveData<HouseholdAccountBook>()
+
+    init {
+        householdAccountBook.value = HouseholdAccountBook()
+        householdAccountBook.addSource(amountOfMoney) { nullable ->
+            nullable?.let { nonNull ->
+                householdAccountBook.value = householdAccountBook.value?.let { value ->
+                    value.amountOfMoney = nonNull
+                    value
+                }
+            }
+        }
+    }
 
     /** エポックミリ秒の日付 */
     var dateAtEpochMilli: Long

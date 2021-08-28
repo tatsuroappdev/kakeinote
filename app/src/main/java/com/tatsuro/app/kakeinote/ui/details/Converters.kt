@@ -6,8 +6,8 @@ object Converters {
 
     @JvmStatic
     @InverseMethod("stringToInt")
-    fun intToString(value: Int): String = value.toString()
+    fun intToString(value: Int?) = value?.toString() ?: ""
 
     @JvmStatic
-    fun stringToInt(value: String): Int = value.toInt()
+    fun stringToInt(value: String) = value.toIntOrNull()
 }

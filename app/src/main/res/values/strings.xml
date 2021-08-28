@@ -40,6 +40,7 @@
     <string name="type">種類</string>
     <string name="content">内容</string>
     <string name="amount_of_money">金額</string>
+    <string name="memo">メモ</string>
     <string name="repeat_write">連続で書き込む</string>
     <string name="write_new_and_close_activity">
         家計簿に新規の収支を書き込み、この画面を閉じます
