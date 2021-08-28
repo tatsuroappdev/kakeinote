@@ -2,8 +2,8 @@
 スマホで家計簿を管理できるAndroidアプリを開発します。
 
 ## 開発環境
-- 言語：Kotlin 1.5.21
-- IDE：Android Studio 4.2.2
+- 言語： Kotlin 1.5.30
+- IDE： Android Studio Arctic Fox | 2020.3.1
 
 ## 画面
 以下は、2021年6月13日現在の画面イメージです。
