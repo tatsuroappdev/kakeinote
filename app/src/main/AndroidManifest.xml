@@ -15,6 +15,7 @@
 
         <activity
             android:name=".ui.main.MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait">
 
             <!-- ランチャーに表示されるアプリ名は省略形にする。 -->
@@ -30,6 +31,7 @@
 
         <activity
             android:name=".ui.details.DetailsActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
