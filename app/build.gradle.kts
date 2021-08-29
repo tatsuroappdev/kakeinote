@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -24,6 +27,26 @@ android {
             keyPassword = "android"
             keyAlias = "androiddebugkey"
         }
+
+        create("release").initWith(getByName("debug"))
+
+        val keystorePropertiesFile = rootProject.file("keystore.properties")
+
+        if (keystorePropertiesFile.exists()) {
+            val keystoreProperties = Properties()
+            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+            val releaseKeystoreFile = file("release.keystore")
+
+            if (releaseKeystoreFile.exists()) {
+                getByName("release") {
+                    storeFile = releaseKeystoreFile
+                    storePassword = keystoreProperties["storePassword"] as? String
+                    keyAlias = keystoreProperties["keyAlias"] as? String
+                    keyPassword = keystoreProperties["keyPassword"] as? String
+                }
+            }
+        }
     }
     buildTypes {
         getByName("debug") {
@@ -40,6 +63,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                     getDefaultProguardFile("proguard-android.txt"),
                     "proguard-rules.pro")
