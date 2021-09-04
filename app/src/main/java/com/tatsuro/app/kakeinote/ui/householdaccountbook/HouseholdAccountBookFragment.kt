@@ -52,11 +52,10 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = HouseholdAccountBookFragmentBinding.bind(view)
-
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-
+        val binding = HouseholdAccountBookFragmentBinding.bind(view).also {
+            it.viewModel = viewModel
+            it.lifecycleOwner = viewLifecycleOwner
+        }.apply {
             TooltipCompat.setTooltipText(
                 prevMonthButton, getString(R.string.previous_month)
             )
@@ -71,8 +70,6 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
                 val intent = Intent(requireContext(), DetailsActivity::class.java)
                 startActivity(intent)
             }
-        }.also {
-            it.viewModel = viewModel
         }
 
         viewModel.householdAccountBook.observe(viewLifecycleOwner) { householdAccountBookList ->
