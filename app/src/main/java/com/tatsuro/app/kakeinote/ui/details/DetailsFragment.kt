@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.orhanobut.logger.Logger
+import com.tatsuro.app.kakeinote.App
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
@@ -36,13 +37,18 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         fun newInstance() = DetailsFragment()
     }
 
-    private var _binding: DetailsFragmentBinding? = null
-    private val binding get() = _binding ?: error(ErrorMessages.DATA_BINDING_NOT_BOUND)
+    /** バインディングインスタンスの実体 */
+    private var nullableBinding: DetailsFragmentBinding? = null
+
+    /** 読み取り専用バインディング */
+    private val readOnlyBinding get() =
+        nullableBinding ?: error(ErrorMessages.DATA_BINDING_NOT_BOUND)
+
     private val viewModel: DetailsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = DetailsFragmentBinding.bind(view).also {
+        nullableBinding = DetailsFragmentBinding.bind(view).also {
             it.viewModel = viewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
@@ -67,7 +73,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             viewModel.setIncomeOrExpenseType(selectedType)
         }
 
-        binding.apply {
+        readOnlyBinding.apply {
             val viewModel = viewModel ?: error(ErrorMessages.VIEW_MODEL_NOT_INITIALIZED)
             val householdAccountBook = viewModel
                 .householdAccountBook
@@ -114,7 +120,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 if (householdAccountBook.type == null) {
                     // スナックバーを表示する。
                     val snackbar = Snackbar.make(
-                        binding.mainLayout,
+                        readOnlyBinding.mainLayout,
                         getString(R.string.please_select_type),
                         Snackbar.LENGTH_SHORT)
                     snackbar.setAction(R.string.select) {
@@ -145,7 +151,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 if (householdAccountBook.type == null) {
                     // スナックバーを表示する。
                     val snackbar = Snackbar.make(
-                        binding.mainLayout,
+                        readOnlyBinding.mainLayout,
                         getString(R.string.please_select_type),
                         Snackbar.LENGTH_SHORT)
                     snackbar.setAction(R.string.select) {
@@ -175,7 +181,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 // 書き込み結果をSnackbarに表示する。
                 // typeはnullチェック済みなので、強制アンラップする。
                 val snackbar = Snackbar.make(
-                    binding.mainLayout,
+                    readOnlyBinding.mainLayout,
                     getString(
                         R.string.write_income_or_expense,
                         getString(householdAccountBook.incomeOrExpense.strResId),
@@ -219,7 +225,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        nullableBinding = null
     }
 
     /**
@@ -245,11 +251,13 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             }
         }
 
-        binding.apply {
+        readOnlyBinding.apply {
             expenseButton.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), expenseButtonColor))
+                App.getColor(expenseButtonColor)
+            )
             incomeButton.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), incomeButtonColor))
+                App.getColor(incomeButtonColor)
+            )
         }
     }
 }
