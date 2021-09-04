@@ -36,7 +36,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         StrictModeInitializer.initialize()
-        LoggerInitializer.initialize()
         FlipperInitializer.initialize(this)
+        LoggerInitializer.initialize()
     }
 }
