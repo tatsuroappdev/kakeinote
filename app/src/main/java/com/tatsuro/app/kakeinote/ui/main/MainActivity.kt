@@ -1,17 +1,14 @@
 package com.tatsuro.app.kakeinote.ui.main
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
-import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment
 
 /** メインアクティビティ */
 class MainActivity : AppCompatActivity(),
-    HouseholdAccountBookFragment.OnWriteButtonClickListener,
     HouseholdAccountBookFragment.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +42,6 @@ class MainActivity : AppCompatActivity(),
                 return@setOnItemSelectedListener true
             }
         }
-    }
-
-    /** 書き込むボタンのクリックイベント */
-    override fun onWriteButtonClick() {
-        val intent = Intent(this, DetailsActivity::class.java)
-        startActivity(intent)
     }
 
     /** 家計簿リスト項目のクリックイベント */

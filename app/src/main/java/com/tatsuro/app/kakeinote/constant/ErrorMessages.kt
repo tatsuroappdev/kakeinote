@@ -11,10 +11,6 @@ object ErrorMessages {
     const val INVALID_FRAGMENT_SELECTED =
         "The invalid fragment is selected."
 
-    /** コンテキストはOnWriteButtonClickListenerを継承していない。 */
-    const val DO_NOT_INHERIT_ON_WRITE_BUTTON_CLICK_LISTENER =
-        "The context doesn't inherit OnWriteButtonClickListener."
-
     /** コンテキストはOnItemClickListenerを継承していない。 */
     const val DO_NOT_INHERIT_ON_ITEM_CLICK_LISTENER =
         "The context doesn't inherit OnItemClickListener."

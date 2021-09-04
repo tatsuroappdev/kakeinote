@@ -1,6 +1,7 @@
 package com.tatsuro.app.kakeinote.ui.householdaccountbook
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
@@ -13,18 +14,12 @@ import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookFragmentBinding
+import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookHeaderAdapter
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookListAdapter
 
 /** 家計簿フラグメント */
 class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fragment) {
-
-    /** 書き込むボタンがクリックされたときに呼び出されるコールバックのためのインターフェース定義 */
-    interface OnWriteButtonClickListener {
-
-        /** 書き込むボタンがクリックされたときに呼び出される。 */
-        fun onWriteButtonClick()
-    }
 
     /** 家計簿リスト項目がクリックされたときに呼び出されるコールバックのためのインターフェース定義 */
     interface OnItemClickListener {
@@ -39,9 +34,6 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
     /** 家計簿ビューモデル */
     private val viewModel: HouseholdAccountBookViewModel by viewModels()
 
-    /** 書き込むボタンのクリックリスナ */
-    private lateinit var onWriteButtonClickListener: OnWriteButtonClickListener
-
     /** 家計簿リスト項目のクリックリスナ */
     private lateinit var onItemClickListener: OnItemClickListener
 
@@ -50,12 +42,6 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
      */
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        if (context is OnWriteButtonClickListener) {
-            onWriteButtonClickListener = context
-        } else {
-            error(ErrorMessages.DO_NOT_INHERIT_ON_WRITE_BUTTON_CLICK_LISTENER)
-        }
 
         if (context is OnItemClickListener) {
             onItemClickListener = context
@@ -82,7 +68,8 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
             )
 
             writeButton.setOnClickListener {
-                onWriteButtonClickListener.onWriteButtonClick()
+                val intent = Intent(requireContext(), DetailsActivity::class.java)
+                startActivity(intent)
             }
         }.also {
             it.viewModel = viewModel
