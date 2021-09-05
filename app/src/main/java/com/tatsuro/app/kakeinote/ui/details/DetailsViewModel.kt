@@ -177,13 +177,4 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
             .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
         dao.upsert(value)
     }
-
-    /**
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
-     */
-    suspend fun delete() {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-        dao.delete(value)
-    }
 }

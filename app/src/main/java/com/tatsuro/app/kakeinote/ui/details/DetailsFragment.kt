@@ -44,38 +44,15 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     private val readOnlyBinding get() =
         nullableBinding ?: error(ErrorMessages.DATA_BINDING_NOT_BOUND)
 
-    private val viewModel: DetailsViewModel by viewModels()
+    private val _viewModel: DetailsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        nullableBinding = DetailsFragmentBinding.bind(view).also {
-            it.viewModel = viewModel
-            it.lifecycleOwner = viewLifecycleOwner
-        }
+        nullableBinding = DetailsFragmentBinding.bind(view).apply {
+            viewModel = _viewModel
+            lifecycleOwner = viewLifecycleOwner
 
-        viewModel.householdAccountBook.observe(viewLifecycleOwner) {
-            Logger.d(it)
-            refreshIncomeOrExpenseToggleButton()
-        }
-
-        // 種類選択ボトムシートから選択された種類を取得する。
-        setFragmentResultListener(REQUEST_KEY_TYPE_SELECT) { _, bundle ->
-            val selectedType =
-                bundle.getSerializable(TypeSelectBottomSheet.EXTRA_ENUM_SELECTED_TYPE)
-
-            Logger.d("selectedType: $selectedType")
-
-            // Serializable?からIncomeOrExpenseTypeにキャストする。
-            if (selectedType !is IncomeOrExpenseType) {
-                return@setFragmentResultListener
-            }
-
-            viewModel.setIncomeOrExpenseType(selectedType)
-        }
-
-        readOnlyBinding.apply {
-            val viewModel = viewModel ?: error(ErrorMessages.VIEW_MODEL_NOT_INITIALIZED)
-            val householdAccountBook = viewModel
+            val householdAccountBook = _viewModel
                 .householdAccountBook
                 .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
 
@@ -83,10 +60,10 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             dateEditText.setOnSafeClickListener {
                 val datePicker = MaterialDatePicker.Builder
                     .datePicker()
-                    .setSelection(viewModel.dateAtEpochMilli)
+                    .setSelection(_viewModel.dateAtEpochMilli)
                     .build().apply {
                         addOnPositiveButtonClickListener {
-                            viewModel.dateAtEpochMilli = it
+                            _viewModel.dateAtEpochMilli = it
                         }
                     }
 
@@ -103,7 +80,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     .build()
 
                 timePicker.addOnPositiveButtonClickListener {
-                    viewModel.setTime(timePicker.hour, timePicker.minute)
+                    _viewModel.setTime(timePicker.hour, timePicker.minute)
                 }
 
                 timePicker.show(parentFragmentManager, timePicker.toString())
@@ -141,7 +118,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
                 // データベースに保存する。
                 runBlocking {
-                    viewModel.upsert()
+                    _viewModel.upsert()
                 }
 
                 requireActivity().finish()
@@ -172,11 +149,11 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
                 // データベースに保存する。
                 runBlocking {
-                    viewModel.upsert()
+                    _viewModel.upsert()
                 }
 
                 // 家計簿を初期化する。
-                viewModel.initHouseholdAccountBook()
+                _viewModel.initHouseholdAccountBook()
 
                 // 書き込み結果をSnackbarに表示する。
                 // typeはnullチェック済みなので、強制アンラップする。
@@ -199,19 +176,6 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     ContextCompat.getColor(requireContext(), R.color.light_blue))
             }
 
-            deleteButton.setOnClickListener {
-                // ボタンを無効化する。
-                it.isClickable = false
-                it.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.translucent_red))
-
-                runBlocking {
-                    viewModel.delete()
-                }
-
-                requireActivity().finish()
-            }
-
             TooltipCompat.setTooltipText(
                 prevDayButton, getString(R.string.date_to_previous))
             TooltipCompat.setTooltipText(
@@ -220,6 +184,26 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 onceWriteButton, getString(R.string.write_new_and_close_activity))
             TooltipCompat.setTooltipText(
                 repeatWriteButton, getString(R.string.write_new_and_can_write_other))
+        }
+
+        _viewModel.householdAccountBook.observe(viewLifecycleOwner) {
+            Logger.d(it)
+            refreshIncomeOrExpenseToggleButton()
+        }
+
+        // 種類選択ボトムシートから選択された種類を取得する。
+        setFragmentResultListener(REQUEST_KEY_TYPE_SELECT) { _, bundle ->
+            val selectedType =
+                bundle.getSerializable(TypeSelectBottomSheet.EXTRA_ENUM_SELECTED_TYPE)
+
+            Logger.d("selectedType: $selectedType")
+
+            // Serializable?からIncomeOrExpenseTypeにキャストする。
+            if (selectedType !is IncomeOrExpenseType) {
+                return@setFragmentResultListener
+            }
+
+            _viewModel.setIncomeOrExpenseType(selectedType)
         }
     }
 
@@ -230,10 +214,10 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     /**
      * 収支トグルボタンの表示を更新する。
-     * @exception IllegalStateException viewModelのhouseholdAccountBookが初期化されていない場合に投げられる。
+     * @exception IllegalStateException [DetailsViewModel.householdAccountBook]が初期化されていない場合に投げられる。
      */
     private fun refreshIncomeOrExpenseToggleButton() {
-        val householdAccountBook = viewModel
+        val householdAccountBook = _viewModel
             .householdAccountBook
             .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
 

@@ -23,10 +23,6 @@ object ErrorMessages {
     const val DATA_BINDING_NOT_BOUND =
         "The data binding is not bound."
 
-    /** プロパティviewModelは初期化されていない。 */
-    const val VIEW_MODEL_NOT_INITIALIZED =
-        "The property viewModel is not initialized."
-
     /** プロパティhouseholdAccountBookは初期化されていない。 */
     const val HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED =
         "The property householdAccountBook is not initialized."

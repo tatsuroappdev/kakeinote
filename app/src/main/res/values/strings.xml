@@ -14,7 +14,7 @@
     <string name="sum">合計</string>
     <string name="write">書き込む</string>
     <string name="show_new_write_activity">新規書き込み画面を表示します</string>
-    <string name="new_write">新規書き込み</string>
+    <string name="writing">書き込み</string>
     <string name="date">日付</string>
     <string-array name="day_of_week">
         <item>月</item>
