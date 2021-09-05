@@ -90,8 +90,8 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1-native-mt")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt")
 
     // AndroidX
     implementation("androidx.core:core-ktx:1.6.0")
@@ -115,10 +115,10 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
 
     // Flipper
-    debugImplementation("com.facebook.flipper:flipper:0.104.0")
+    debugImplementation("com.facebook.flipper:flipper:0.105.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.104.0")
-    releaseImplementation("com.facebook.flipper:flipper-noop:0.104.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.105.0")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.105.0")
 
     implementation("com.orhanobut:logger:2.2.0")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
