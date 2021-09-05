@@ -1,2 +1,8 @@
-/build
+# Gradle files
+build/
+
+# Release keystore file
 release.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
