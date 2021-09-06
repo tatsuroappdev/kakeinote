@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="button_background_paddingVertical">4dp</dimen>
+    <dimen name="button_background_paddingHorizontal">8dp</dimen>
     <dimen name="in_toolbar_padding">16dp</dimen>
     <dimen name="in_toolbar_textSize">20sp</dimen>
     <dimen name="household_account_book_item_distance">8dp</dimen>
