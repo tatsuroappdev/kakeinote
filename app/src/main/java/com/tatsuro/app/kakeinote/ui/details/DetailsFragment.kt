@@ -52,10 +52,6 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             viewModel = _viewModel
             lifecycleOwner = viewLifecycleOwner
 
-            val householdAccountBook = _viewModel
-                .householdAccountBook
-                .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
             // 日付EditTextがクリックされたとき、日付変更ダイアログを表示する。
             dateEditText.setOnSafeClickListener {
                 val datePicker = MaterialDatePicker.Builder
@@ -75,8 +71,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 val timePicker = MaterialTimePicker.Builder()
                     .setTimeFormat(TimeFormat.CLOCK_24H)
                     .setTitleText(R.string.please_select_time)
-                    .setHour(householdAccountBook.time.hour)
-                    .setMinute(householdAccountBook.time.minute)
+                    .setHour(_viewModel.householdAccountBook.time.hour)
+                    .setMinute(_viewModel.householdAccountBook.time.minute)
                     .build()
 
                 timePicker.addOnPositiveButtonClickListener {
@@ -89,12 +85,12 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             // 種類EditTextがクリックされたとき、種類選択ボトムシートを表示する。
             typeEditText.setOnSafeClickListener {
                 val bottomSheet = TypeSelectBottomSheet
-                    .newInstance(householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
+                    .newInstance(_viewModel.householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
                 bottomSheet.show(parentFragmentManager, bottomSheet.toString())
             }
 
             onceWriteButton.setOnClickListener {
-                if (householdAccountBook.type == null) {
+                if (_viewModel.householdAccountBook.type == null) {
                     // スナックバーを表示する。
                     val snackbar = Snackbar.make(
                         readOnlyBinding.mainLayout,
@@ -103,7 +99,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     snackbar.setAction(R.string.select) {
                         snackbar.dismiss()
                         val bottomSheet = TypeSelectBottomSheet.newInstance(
-                            householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
+                            _viewModel.householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
                         bottomSheet.show(parentFragmentManager, bottomSheet.toString())
                     }
                     snackbar.show()
@@ -125,7 +121,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             }
 
             repeatWriteButton.setOnClickListener {
-                if (householdAccountBook.type == null) {
+                if (_viewModel.householdAccountBook.type == null) {
                     // スナックバーを表示する。
                     val snackbar = Snackbar.make(
                         readOnlyBinding.mainLayout,
@@ -134,7 +130,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     snackbar.setAction(R.string.select) {
                         snackbar.dismiss()
                         val bottomSheet = TypeSelectBottomSheet.newInstance(
-                            householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
+                            _viewModel.householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
                         bottomSheet.show(parentFragmentManager, bottomSheet.toString())
                     }
                     snackbar.show()
@@ -161,9 +157,9 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     readOnlyBinding.mainLayout,
                     getString(
                         R.string.write_income_or_expense,
-                        getString(householdAccountBook.incomeOrExpense.strResId),
-                        getString(householdAccountBook.type!!.strResId),
-                        householdAccountBook.amountOfMoney),
+                        getString(_viewModel.householdAccountBook.incomeOrExpense.strResId),
+                        getString(_viewModel.householdAccountBook.type!!.strResId),
+                        _viewModel.householdAccountBook.amountOfMoney),
                     Snackbar.LENGTH_SHORT)
                 snackbar.setAction(R.string.ok) {
                     snackbar.dismiss()
@@ -186,7 +182,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 repeatWriteButton, getString(R.string.write_new_and_can_write_other))
         }
 
-        _viewModel.householdAccountBook.observe(viewLifecycleOwner) {
+        _viewModel.householdAccountBookLiveData.observe(viewLifecycleOwner) {
             Logger.d(it)
             refreshIncomeOrExpenseToggleButton()
         }
@@ -217,14 +213,10 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
      * @exception IllegalStateException [DetailsViewModel.householdAccountBook]が初期化されていない場合に投げられる。
      */
     private fun refreshIncomeOrExpenseToggleButton() {
-        val householdAccountBook = _viewModel
-            .householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
         val expenseButtonColor: Int
         val incomeButtonColor: Int
 
-        when (householdAccountBook.incomeOrExpense) {
+        when (_viewModel.householdAccountBook.incomeOrExpense) {
             IncomeOrExpense.INCOME -> {
                 expenseButtonColor = R.color.translucent_red
                 incomeButtonColor = R.color.blue
