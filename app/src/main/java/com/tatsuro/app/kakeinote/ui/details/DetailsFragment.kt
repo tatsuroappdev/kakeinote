@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -19,7 +20,7 @@ import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
 import com.tatsuro.app.kakeinote.databinding.DetailsFragmentBinding
 import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
 import com.tatsuro.app.kakeinote.ui.typeselect.TypeSelectBottomSheet
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.collect
 
 /** 詳細フラグメント */
 class DetailsFragment : Fragment(R.layout.details_fragment) {
@@ -43,7 +44,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     private val readOnlyBinding get() =
         nullableBinding ?: error(ErrorMessages.DATA_BINDING_NOT_BOUND)
 
-    private val _viewModel: DetailsViewModel by viewModels()
+    private val _viewModel: DetailsViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,104 +89,6 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 bottomSheet.show(parentFragmentManager, bottomSheet.toString())
             }
 
-            onceWriteButton.setOnClickListener {
-                if (_viewModel.householdAccountBook.type == null) {
-                    // スナックバーを表示する。
-                    val snackbar = Snackbar.make(
-                        readOnlyBinding.mainLayout,
-                        getString(R.string.please_select_type),
-                        Snackbar.LENGTH_SHORT
-                    )
-
-                    snackbar.setAction(R.string.select) {
-                        snackbar.dismiss()
-                        val bottomSheet = TypeSelectBottomSheet.newInstance(
-                            _viewModel.householdAccountBook.incomeOrExpense,
-                            REQUEST_KEY_TYPE_SELECT
-                        )
-                        bottomSheet.show(parentFragmentManager, bottomSheet.toString())
-                    }
-
-                    snackbar.show()
-
-                    return@setOnClickListener
-                }
-
-                // ボタンを無効化する。
-                it.isClickable = false
-                it.setBackgroundColor(App.getColor(R.color.translucent_light_blue))
-
-                // データベースに保存する。
-                runBlocking {
-                    _viewModel.upsert()
-                }
-
-                requireActivity().finish()
-            }
-
-            repeatWriteButton.setOnClickListener {
-                if (_viewModel.householdAccountBook.type == null) {
-                    // スナックバーを表示する。
-                    val snackbar = Snackbar.make(
-                        readOnlyBinding.mainLayout,
-                        getString(R.string.please_select_type),
-                        Snackbar.LENGTH_SHORT
-                    )
-
-                    snackbar.setAction(R.string.select) {
-                        snackbar.dismiss()
-                        val bottomSheet = TypeSelectBottomSheet.newInstance(
-                            _viewModel.householdAccountBook.incomeOrExpense,
-                            REQUEST_KEY_TYPE_SELECT
-                        )
-                        bottomSheet.show(parentFragmentManager, bottomSheet.toString())
-                    }
-
-                    snackbar.show()
-
-                    return@setOnClickListener
-                }
-
-                // ボタンを無効化する。
-                it.isClickable = false
-                it.setBackgroundColor(App.getColor(R.color.translucent_light_blue))
-
-                // データベースに保存する。
-                runBlocking {
-                    _viewModel.upsert()
-                }
-
-                val amountOfMoneyText = "¥ %,d".format(
-                    _viewModel.householdAccountBook.amountOfMoney
-                )
-
-                // 書き込み結果をSnackbarに表示する。
-                // typeはnullチェック済みなので、強制アンラップする。
-                val snackbar = Snackbar.make(
-                    readOnlyBinding.mainLayout,
-                    getString(
-                        R.string.has_written_income_or_expense,
-                        getString(_viewModel.householdAccountBook.incomeOrExpense.strResId),
-                        getString(_viewModel.householdAccountBook.type!!.strResId),
-                        amountOfMoneyText
-                    ),
-                    Snackbar.LENGTH_SHORT
-                )
-
-                snackbar.setAction(R.string.ok) {
-                    snackbar.dismiss()
-                }
-
-                snackbar.show()
-
-                // 家計簿を初期化する。
-                _viewModel.initHouseholdAccountBook()
-
-                // ボタンを有効化する。
-                it.isClickable = true
-                it.setBackgroundColor(App.getColor(R.color.light_blue))
-            }
-
             TooltipCompat.setTooltipText(
                 prevDayButton, getString(R.string.date_to_previous))
             TooltipCompat.setTooltipText(
@@ -199,6 +102,59 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         _viewModel.householdAccountBookLiveData.observe(viewLifecycleOwner) {
             Logger.d(it)
             refreshIncomeOrExpenseToggleButton()
+        }
+
+        lifecycleScope.launchWhenStarted {
+            _viewModel.typeNotSelectedEvent.collect { householdAccountBook ->
+                // スナックバーを作成する。
+                val snackbar = Snackbar.make(
+                    readOnlyBinding.mainLayout,
+                    getString(R.string.please_select_type),
+                    Snackbar.LENGTH_SHORT
+                )
+
+                // スナックバーにアクションを設定する。
+                snackbar.setAction(R.string.select) {
+                    snackbar.dismiss()
+                    val bottomSheet = TypeSelectBottomSheet.newInstance(
+                        householdAccountBook.incomeOrExpense,
+                        REQUEST_KEY_TYPE_SELECT
+                    )
+                    bottomSheet.show(parentFragmentManager, bottomSheet.toString())
+                }
+
+                // スナックバーを表示する。
+                snackbar.show()
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            _viewModel.writeCompleteEvent.collect { householdAccountBook ->
+                val amountOfMoneyText = "¥ %,d".format(
+                    householdAccountBook.amountOfMoney
+                )
+
+                // スナックバーを作成する。
+                // typeはnullチェック済みなので、強制アンラップする。
+                val snackbar = Snackbar.make(
+                    readOnlyBinding.mainLayout,
+                    getString(
+                        R.string.has_written_income_or_expense,
+                        getString(householdAccountBook.incomeOrExpense.strResId),
+                        getString(householdAccountBook.type!!.strResId),
+                        amountOfMoneyText
+                    ),
+                    Snackbar.LENGTH_SHORT
+                )
+
+                // スナックバーにアクションを設定する。
+                snackbar.setAction(R.string.ok) {
+                    snackbar.dismiss()
+                }
+
+                // スナックバーを表示する。
+                snackbar.show()
+            }
         }
 
         // 種類選択ボトムシートから選択された種類を取得する。
