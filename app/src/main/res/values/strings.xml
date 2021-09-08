@@ -53,7 +53,7 @@
     <string name="save">保存する</string>
     <string name="please_select_type">種類を選択してください</string>
     <string name="select">選択する</string>
-    <string name="write_income_or_expense">%1$s %2$s %3$d を書き込みました</string>
+    <string name="has_written_income_or_expense">%1$s %2$s %3$s を書き込みました</string>
     <string name="ok">OK</string>
 
     <!-- 収支の種類 共通 -->

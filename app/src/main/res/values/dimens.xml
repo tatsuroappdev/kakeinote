@@ -17,6 +17,7 @@
     <dimen name="letterSpacing">0.5</dimen>
     <dimen name="vertical_margin_long">12dp</dimen>
     <dimen name="vertical_margin_short">4dp</dimen>
+    <dimen name="horizontal_margin_longer">16dp</dimen>
     <dimen name="horizontal_margin_middle">8dp</dimen>
     <dimen name="horizontal_margin_short">4dp</dimen>
     <dimen name="borderline_height">1dp</dimen>

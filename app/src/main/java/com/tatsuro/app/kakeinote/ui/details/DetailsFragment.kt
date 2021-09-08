@@ -3,7 +3,6 @@ package com.tatsuro.app.kakeinote.ui.details
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -95,13 +94,18 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     val snackbar = Snackbar.make(
                         readOnlyBinding.mainLayout,
                         getString(R.string.please_select_type),
-                        Snackbar.LENGTH_SHORT)
+                        Snackbar.LENGTH_SHORT
+                    )
+
                     snackbar.setAction(R.string.select) {
                         snackbar.dismiss()
                         val bottomSheet = TypeSelectBottomSheet.newInstance(
-                            _viewModel.householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
+                            _viewModel.householdAccountBook.incomeOrExpense,
+                            REQUEST_KEY_TYPE_SELECT
+                        )
                         bottomSheet.show(parentFragmentManager, bottomSheet.toString())
                     }
+
                     snackbar.show()
 
                     return@setOnClickListener
@@ -109,8 +113,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
                 // ボタンを無効化する。
                 it.isClickable = false
-                it.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.translucent_light_blue))
+                it.setBackgroundColor(App.getColor(R.color.translucent_light_blue))
 
                 // データベースに保存する。
                 runBlocking {
@@ -126,13 +129,18 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                     val snackbar = Snackbar.make(
                         readOnlyBinding.mainLayout,
                         getString(R.string.please_select_type),
-                        Snackbar.LENGTH_SHORT)
+                        Snackbar.LENGTH_SHORT
+                    )
+
                     snackbar.setAction(R.string.select) {
                         snackbar.dismiss()
                         val bottomSheet = TypeSelectBottomSheet.newInstance(
-                            _viewModel.householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
+                            _viewModel.householdAccountBook.incomeOrExpense,
+                            REQUEST_KEY_TYPE_SELECT
+                        )
                         bottomSheet.show(parentFragmentManager, bottomSheet.toString())
                     }
+
                     snackbar.show()
 
                     return@setOnClickListener
@@ -140,36 +148,42 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
                 // ボタンを無効化する。
                 it.isClickable = false
-                it.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.translucent_light_blue))
+                it.setBackgroundColor(App.getColor(R.color.translucent_light_blue))
 
                 // データベースに保存する。
                 runBlocking {
                     _viewModel.upsert()
                 }
 
-                // 家計簿を初期化する。
-                _viewModel.initHouseholdAccountBook()
+                val amountOfMoneyText = "¥ %,d".format(
+                    _viewModel.householdAccountBook.amountOfMoney
+                )
 
                 // 書き込み結果をSnackbarに表示する。
                 // typeはnullチェック済みなので、強制アンラップする。
                 val snackbar = Snackbar.make(
                     readOnlyBinding.mainLayout,
                     getString(
-                        R.string.write_income_or_expense,
+                        R.string.has_written_income_or_expense,
                         getString(_viewModel.householdAccountBook.incomeOrExpense.strResId),
                         getString(_viewModel.householdAccountBook.type!!.strResId),
-                        _viewModel.householdAccountBook.amountOfMoney),
-                    Snackbar.LENGTH_SHORT)
+                        amountOfMoneyText
+                    ),
+                    Snackbar.LENGTH_SHORT
+                )
+
                 snackbar.setAction(R.string.ok) {
                     snackbar.dismiss()
                 }
+
                 snackbar.show()
+
+                // 家計簿を初期化する。
+                _viewModel.initHouseholdAccountBook()
 
                 // ボタンを有効化する。
                 it.isClickable = true
-                it.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.light_blue))
+                it.setBackgroundColor(App.getColor(R.color.light_blue))
             }
 
             TooltipCompat.setTooltipText(
