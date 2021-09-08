@@ -82,7 +82,7 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * 収支の種類を設定する。LiveData
+     * 収支の種類を設定する。
      * @param type 収支の種類
      * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
