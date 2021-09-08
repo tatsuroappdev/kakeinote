@@ -18,41 +18,35 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     /** 金額 */
     val amountOfMoney = MutableLiveData<Int?>()
 
+    /** 家計簿ライブデータ */
+    val householdAccountBookLiveData = MediatorLiveData<HouseholdAccountBook>()
+
     /** 家計簿 */
-    val householdAccountBook = MediatorLiveData<HouseholdAccountBook>()
+    val householdAccountBook get() = householdAccountBookLiveData
+        .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_LIVEDATA_NOT_INITIALIZED)
 
     init {
-        householdAccountBook.value = HouseholdAccountBook()
-        householdAccountBook.addSource(amountOfMoney) { nullable ->
+        householdAccountBookLiveData.value = HouseholdAccountBook()
+        householdAccountBookLiveData.addSource(amountOfMoney) { nullable ->
             nullable?.let { nonNull ->
-                householdAccountBook.value = householdAccountBook.value?.let { value ->
-                    value.amountOfMoney = nonNull
-                    value
-                }
+                householdAccountBook.amountOfMoney = nonNull
+                householdAccountBookLiveData.value = householdAccountBook
             }
         }
     }
 
     /** エポックミリ秒の日付 */
     var dateAtEpochMilli: Long
-        get() {
-            val value = householdAccountBook
-                .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
-            return value.date
+        get() = householdAccountBook.date
                 .atStartOfDay(zoneOffset)
                 .toInstant()
                 .toEpochMilli()
-        }
         set(dateAtEpochMilli) {
             val dateTime = ZonedDateTime.ofInstant(
                 Instant.ofEpochMilli(dateAtEpochMilli), zoneOffset)
 
-            val value = householdAccountBook
-                .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-            value.date = LocalDate.from(dateTime)
-
-            householdAccountBook.value = value
+            householdAccountBook.date = LocalDate.from(dateTime)
+            householdAccountBookLiveData.value = householdAccountBook
         }
 
     /**
@@ -71,119 +65,89 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
 
     /** 家計簿の初期化する。 */
     fun initHouseholdAccountBook() {
-        householdAccountBook.value = HouseholdAccountBook()
+        householdAccountBookLiveData.value = HouseholdAccountBook()
     }
 
     /**
      * 時間を設定する。
      * @param hour 時間
      * @param minute 分
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun setTime(hour: Int, minute: Int) {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
         // 時分を設定する。
         // withメソッドはインスタンスを書き換えないため、 そのメソッドの戻り値で上書きする。
-        value.time = value.time.withHour(hour).withMinute(minute)
-
-        householdAccountBook.value = value
+        householdAccountBook.time = householdAccountBook.time.withHour(hour).withMinute(minute)
+        householdAccountBookLiveData.value = householdAccountBook
     }
 
     /**
-     * 収支の種類を設定する。
+     * 収支の種類を設定する。LiveData
      * @param type 収支の種類
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun setIncomeOrExpenseType(type: IncomeOrExpenseType) {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-        value.type = type
-        householdAccountBook.value = value
+        householdAccountBook.type = type
+        householdAccountBookLiveData.value = householdAccountBook
     }
 
     /**
      * 支出ボタンのイベント
      *
      * 支出ボタンが押されたとき、家計簿の収支を支出に設定する。また、収支の種類をnull値に初期化する。
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun onExpenseButtonClick() {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
-        if (value.incomeOrExpense == IncomeOrExpense.EXPENSE) {
+        if (householdAccountBook.incomeOrExpense == IncomeOrExpense.EXPENSE) {
             return
         }
 
-        value.incomeOrExpense = IncomeOrExpense.EXPENSE
-        value.type = null
-        householdAccountBook.value = value
+        householdAccountBook.incomeOrExpense = IncomeOrExpense.EXPENSE
+        householdAccountBook.type = null
+        householdAccountBookLiveData.value = householdAccountBook
     }
 
     /**
      * 収入ボタンのイベント
      *
      * 収入ボタンが押されたとき、家計簿の収支を収入に設定する。また、収支の種類をnull値に初期化する。
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun onIncomeButtonClick() {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
-        if (value.incomeOrExpense == IncomeOrExpense.INCOME) {
+        if (householdAccountBook.incomeOrExpense == IncomeOrExpense.INCOME) {
             return
         }
 
-        value.incomeOrExpense = IncomeOrExpense.INCOME
-        value.type = null
-        householdAccountBook.value = value
+        householdAccountBook.incomeOrExpense = IncomeOrExpense.INCOME
+        householdAccountBook.type = null
+        householdAccountBookLiveData.value = householdAccountBook
     }
 
     /**
      * 前の日ボタンのイベント
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun onPrevDayButtonClick() {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
         // minusDaysメソッドはインスタンスを書き換えないため、 そのメソッドの戻り値で上書きする。
-        value.date = value.date.minusDays(1)
-
-        householdAccountBook.value = value
+        householdAccountBook.date = householdAccountBook.date.minusDays(1)
+        householdAccountBookLiveData.value = householdAccountBook
     }
 
     /**
      * 次の日ボタンのイベント
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun onNextDayButtonClick() {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-
         // plusDaysメソッドはインスタンスを書き換えないため、 そのメソッドの戻り値で上書きする。
-        value.date = value.date.plusDays(1)
-
-        householdAccountBook.value = value
+        householdAccountBook.date = householdAccountBook.date.plusDays(1)
+        householdAccountBookLiveData.value = householdAccountBook
     }
 
     /**
      * 家計簿に収支を1件書き込む。
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     suspend fun upsert() {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-        dao.upsert(value)
-    }
-
-    /**
-     * @exception IllegalStateException プロパティhouseholdAccountBookが初期化されていない場合に投げられる。
-     */
-    suspend fun delete() {
-        val value = householdAccountBook
-            .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_NOT_INITIALIZED)
-        dao.delete(value)
+        dao.upsert(householdAccountBook)
     }
 }

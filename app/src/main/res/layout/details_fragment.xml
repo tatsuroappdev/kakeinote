@@ -84,32 +84,35 @@
                 android:focusable="false"
                 android:inputType="none"
                 android:singleLine="true"
-                app:date="@{viewModel.householdAccountBook.date}" />
+                app:date="@{viewModel.householdAccountBookLiveData.date}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- TODO:色を変更したい。 -->
         <ImageButton
             android:id="@+id/prevDayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/horizontal_margin_middle"
+            android:layout_marginStart="@dimen/horizontal_margin_longer"
+            android:layout_marginEnd="@dimen/horizontal_margin_middle"
+            android:background="@drawable/bg_gray_button"
             android:onClick="@{() -> viewModel.onPrevDayButtonClick()}"
             android:contentDescription="@string/date_to_previous"
             app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+            app:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@id/timeLayout"
             app:layout_constraintStart_toEndOf="@id/dateLayout"
             app:layout_constraintTop_toBottomOf="@id/expenseButton" />
 
-        <!-- TODO:色を変更したい。 -->
         <ImageButton
             android:id="@+id/nextDayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/horizontal_margin_middle"
+            android:background="@drawable/bg_gray_button"
             android:onClick="@{() -> viewModel.onNextDayButtonClick()}"
             android:contentDescription="@string/date_to_next"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@id/timeLayout"
             app:layout_constraintStart_toEndOf="@id/prevDayButton"
             app:layout_constraintTop_toBottomOf="@id/expenseButton" />
@@ -134,7 +137,7 @@
                 android:focusable="false"
                 android:inputType="none"
                 android:singleLine="true"
-                app:time="@{viewModel.householdAccountBook.time}" />
+                app:time="@{viewModel.householdAccountBookLiveData.time}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,7 +161,7 @@
                 android:focusable="false"
                 android:inputType="none"
                 android:singleLine="true"
-                app:incomeOrExpenseType="@{viewModel.householdAccountBook.type}"/>
+                app:incomeOrExpenseType="@{viewModel.householdAccountBookLiveData.type}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:singleLine="true"
-                android:text="@={viewModel.householdAccountBook.content}" />
+                android:text="@={viewModel.householdAccountBookLiveData.content}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -230,7 +233,7 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:minLines="3"
-                android:text="@={viewModel.householdAccountBook.memo}" />
+                android:text="@={viewModel.householdAccountBookLiveData.memo}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
