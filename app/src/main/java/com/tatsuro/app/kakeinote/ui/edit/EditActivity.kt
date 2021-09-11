@@ -1,4 +1,4 @@
-package com.tatsuro.app.kakeinote.ui.details
+package com.tatsuro.app.kakeinote.ui.edit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,18 +6,18 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.tatsuro.app.kakeinote.R
-import com.tatsuro.app.kakeinote.databinding.DetailsActivityBinding
+import com.tatsuro.app.kakeinote.databinding.EditActivityBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-/** 詳細アクティビティ */
-class DetailsActivity : AppCompatActivity() {
+/** 編集アクティビティ */
+class EditActivity : AppCompatActivity() {
 
-    private val viewModel: DetailsViewModel by viewModels()
+    private val viewModel: EditViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DetailsActivityBinding.inflate(layoutInflater)
+        val binding = EditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // ツールバーを設定する。
@@ -40,7 +40,7 @@ class DetailsActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, DetailsFragment.newInstance())
+                .replace(R.id.container, EditBaseFragment())
                 .commitNow()
         }
     }

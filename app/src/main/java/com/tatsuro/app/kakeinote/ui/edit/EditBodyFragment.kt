@@ -1,4 +1,4 @@
-package com.tatsuro.app.kakeinote.ui.details
+package com.tatsuro.app.kakeinote.ui.edit
 
 import android.os.Bundle
 import android.view.View
@@ -17,38 +17,32 @@ import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
-import com.tatsuro.app.kakeinote.databinding.DetailsFragmentBinding
+import com.tatsuro.app.kakeinote.databinding.EditBodyFragmentBinding
 import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
 import com.tatsuro.app.kakeinote.ui.typeselect.TypeSelectBottomSheet
 import kotlinx.coroutines.flow.collect
 
-/** 詳細フラグメント */
-class DetailsFragment : Fragment(R.layout.details_fragment) {
+/** 編集ボディフラグメント */
+class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
 
     companion object {
 
         /** 種類選択ボトムシートから選択された種類を取得するためのリクエストキー */
         private const val REQUEST_KEY_TYPE_SELECT = "typeSelect"
-
-        /**
-         * フラグメントのインスタントを返す。
-         * @return フラグメントインスタント
-         */
-        fun newInstance() = DetailsFragment()
     }
 
     /** バインディングインスタンスの実体 */
-    private var nullableBinding: DetailsFragmentBinding? = null
+    private var nullableBinding: EditBodyFragmentBinding? = null
 
     /** 読み取り専用バインディング */
     private val readOnlyBinding get() =
         nullableBinding ?: error(ErrorMessages.DATA_BINDING_NOT_BOUND)
 
-    private val _viewModel: DetailsViewModel by activityViewModels()
+    private val _viewModel: EditViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        nullableBinding = DetailsFragmentBinding.bind(view).apply {
+        nullableBinding = EditBodyFragmentBinding.bind(view).apply {
             viewModel = _viewModel
             lifecycleOwner = viewLifecycleOwner
 
@@ -93,10 +87,6 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 prevDayButton, getString(R.string.date_to_previous))
             TooltipCompat.setTooltipText(
                 nextDayButton, getString(R.string.date_to_next))
-            TooltipCompat.setTooltipText(
-                onceWriteButton, getString(R.string.write_new_and_close_activity))
-            TooltipCompat.setTooltipText(
-                repeatWriteButton, getString(R.string.write_new_and_can_write_other))
         }
 
         _viewModel.householdAccountBookLiveData.observe(viewLifecycleOwner) {
@@ -180,7 +170,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     /**
      * 収支トグルボタンの表示を更新する。
-     * @exception IllegalStateException [DetailsViewModel.householdAccountBook]が初期化されていない場合に投げられる。
+     * @exception IllegalStateException [EditViewModel.householdAccountBook]が初期化されていない場合に投げられる。
      */
     private fun refreshIncomeOrExpenseToggleButton() {
         val expenseButtonColor: Int

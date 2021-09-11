@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".ui.details.DetailsActivity"
+            android:name=".ui.edit.EditActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

@@ -14,7 +14,7 @@ import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookFragmentBinding
-import com.tatsuro.app.kakeinote.ui.details.DetailsActivity
+import com.tatsuro.app.kakeinote.ui.edit.EditActivity
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookHeaderAdapter
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookListAdapter
 
@@ -67,7 +67,7 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
             )
 
             writeButton.setOnClickListener {
-                val intent = Intent(requireContext(), DetailsActivity::class.java)
+                val intent = Intent(requireContext(), EditActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -1,4 +1,4 @@
-package com.tatsuro.app.kakeinote.ui.details
+package com.tatsuro.app.kakeinote.ui.edit
 
 import android.app.Application
 import android.view.View
@@ -20,8 +20,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.time.*
 
-/** 詳細ビューモデル */
-class DetailsViewModel(application: Application) : AndroidViewModel(application) {
+/** 編集ビューモデル */
+class EditViewModel(application: Application) : AndroidViewModel(application) {
 
     /** 金額 */
     val amountOfMoney = MutableLiveData<Int?>()

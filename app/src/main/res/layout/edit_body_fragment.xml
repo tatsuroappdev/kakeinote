@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.tatsuro.app.kakeinote.ui.details.Converters" />
+        <import type="com.tatsuro.app.kakeinote.ui.edit.Converters" />
 
         <variable
             name="viewModel"
-            type="com.tatsuro.app.kakeinote.ui.details.DetailsViewModel" />
+            type="com.tatsuro.app.kakeinote.ui.edit.EditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/main_padding"
-        tools:context=".ui.details.DetailsFragment">
+        tools:context=".ui.edit.EditBodyFragment">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/expenseButton"
@@ -233,36 +233,6 @@
                 android:text="@={viewModel.householdAccountBookLiveData.memo}" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/onceWriteButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
-            android:layout_marginTop="@dimen/vertical_margin_long"
-            android:layout_marginEnd="@dimen/horizontal_margin_middle"
-            android:onClick="@{viewModel::onOnceWriteButtonClick}"
-            android:text="@string/write"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintEnd_toStartOf="@id/repeatWriteButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/memoLayout" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/repeatWriteButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
-            android:layout_marginStart="@dimen/horizontal_margin_middle"
-            android:layout_marginTop="@dimen/vertical_margin_long"
-            android:onClick="@{viewModel::onRepeatWriteButtonClick}"
-            android:text="@string/repeat_write"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/onceWriteButton"
-            app:layout_constraintTop_toBottomOf="@id/memoLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
