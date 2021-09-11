@@ -33,16 +33,6 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     val householdAccountBook get() = householdAccountBookLiveData
         .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_LIVEDATA_NOT_INITIALIZED)
 
-    init {
-        householdAccountBookLiveData.value = HouseholdAccountBook()
-        householdAccountBookLiveData.addSource(amountOfMoney) { nullable ->
-            nullable?.let { nonNull ->
-                householdAccountBook.amountOfMoney = nonNull
-                householdAccountBookLiveData.value = householdAccountBook
-            }
-        }
-    }
-
     /** エポックミリ秒の日付 */
     var dateAtEpochMilli: Long
         get() = householdAccountBook.date
@@ -91,6 +81,16 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     private val dao = AppDatabase
         .getInstance(application)
         .dao()
+
+    init {
+        householdAccountBookLiveData.value = HouseholdAccountBook()
+        householdAccountBookLiveData.addSource(amountOfMoney) { nullable ->
+            nullable?.let { nonNull ->
+                householdAccountBook.amountOfMoney = nonNull
+                householdAccountBookLiveData.value = householdAccountBook
+            }
+        }
+    }
 
     /**
      * 時間を設定する。
