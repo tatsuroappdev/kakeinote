@@ -1,4 +1,4 @@
-package com.tatsuro.app.kakeinote.ui.details
+package com.tatsuro.app.kakeinote.ui.edit
 
 import androidx.databinding.InverseMethod
 

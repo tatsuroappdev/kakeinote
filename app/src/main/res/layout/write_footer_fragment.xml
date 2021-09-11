@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tatsuro.app.kakeinote.ui.edit.EditViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/main_padding"
+        android:paddingEnd="@dimen/main_padding"
+        tools:context=".ui.write.WriteFooterFragment">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/onceWriteButton"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/row_height"
+            android:layout_marginEnd="@dimen/horizontal_margin_middle"
+            android:onClick="@{viewModel::onOnceWriteButtonClick}"
+            android:text="@string/write"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            app:cornerRadius="@dimen/roundButton_cornerRadius"
+            app:layout_constraintEnd_toStartOf="@id/repeatWriteButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/repeatWriteButton"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/row_height"
+            android:layout_marginStart="@dimen/horizontal_margin_middle"
+            android:onClick="@{viewModel::onRepeatWriteButtonClick}"
+            android:text="@string/repeat_write"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            app:cornerRadius="@dimen/roundButton_cornerRadius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/onceWriteButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

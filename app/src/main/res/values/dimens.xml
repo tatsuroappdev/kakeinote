@@ -21,4 +21,5 @@
     <dimen name="horizontal_margin_middle">8dp</dimen>
     <dimen name="horizontal_margin_short">4dp</dimen>
     <dimen name="borderline_height">1dp</dimen>
+    <dimen name="three_rows_text_height">102dp</dimen>
 </resources>

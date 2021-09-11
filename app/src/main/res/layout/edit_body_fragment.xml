@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.tatsuro.app.kakeinote.ui.details.Converters" />
+        <import type="com.tatsuro.app.kakeinote.ui.edit.Converters" />
 
         <variable
             name="viewModel"
-            type="com.tatsuro.app.kakeinote.ui.details.DetailsViewModel" />
+            type="com.tatsuro.app.kakeinote.ui.edit.EditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/main_padding"
-        tools:context=".ui.details.DetailsFragment">
+        tools:context=".ui.edit.EditBodyFragment">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/expenseButton"
@@ -70,7 +70,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_long"
-            android:layout_marginBottom="@dimen/vertical_margin_long"
             android:hint="@string/date"
             app:layout_constraintEnd_toEndOf="@id/dateGuideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +122,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_long"
-            android:layout_marginBottom="@dimen/vertical_margin_long"
             android:hint="@string/time"
             app:layout_constraintEnd_toEndOf="@id/timeGuideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +145,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_long"
-            android:layout_marginBottom="@dimen/vertical_margin_long"
             android:hint="@string/type"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -171,7 +168,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_long"
-            android:layout_marginBottom="@dimen/vertical_margin_long"
             android:hint="@string/content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +190,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_long"
-            android:layout_marginBottom="@dimen/vertical_margin_long"
             android:hint="@string/amount_of_money"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -219,111 +214,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_long"
-            android:layout_marginBottom="@dimen/vertical_margin_long"
             android:hint="@string/memo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/amountOfMoneyLayout"
             app:endIconMode="clear_text">
 
+            <!-- layout_heightにwrap_contentを設定すると、テキストを削除したときに
+                 EditTextの高さが変わってしまうため、固定サイズを設定する。 -->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/memoEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/three_rows_text_height"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
+                android:maxLines="3"
                 android:minLines="3"
                 android:text="@={viewModel.householdAccountBookLiveData.memo}" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/onceWriteButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
-            android:layout_marginStart="@dimen/horizontal_margin_middle"
-            android:layout_marginEnd="@dimen/horizontal_margin_middle"
-            android:text="@string/write"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintBottom_toTopOf="@id/deleteButton"
-            app:layout_constraintEnd_toStartOf="@id/repeatWriteButton"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/repeatWriteButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
-            android:layout_marginStart="@dimen/horizontal_margin_middle"
-            android:layout_marginEnd="@dimen/horizontal_margin_middle"
-            android:text="@string/repeat_write"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintBottom_toTopOf="@id/deleteButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/onceWriteButton" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/deleteButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
-            android:layout_marginStart="@dimen/horizontal_margin_middle"
-            android:layout_marginEnd="@dimen/horizontal_margin_middle"
-            android:background="@color/red"
-            android:text="@string/delete"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/copyButton"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/copyButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
-            android:layout_marginStart="@dimen/horizontal_margin_middle"
-            android:layout_marginEnd="@dimen/horizontal_margin_middle"
-            android:text="@string/copy"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/saveButton"
-            app:layout_constraintStart_toEndOf="@id/deleteButton" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
-            android:layout_marginStart="@dimen/horizontal_margin_middle"
-            android:layout_marginEnd="@dimen/horizontal_margin_middle"
-            android:text="@string/save"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/copyButton" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/newWriteButtonsGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="onceWriteButton,repeatWriteButton"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/detailsButtonsGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="copyButton,saveButton,deleteButton"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

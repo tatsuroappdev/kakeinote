@@ -1,19 +1,27 @@
-package com.tatsuro.app.kakeinote.ui.details
+package com.tatsuro.app.kakeinote.ui.edit
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.tatsuro.app.kakeinote.App
+import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
 import com.tatsuro.app.kakeinote.database.AppDatabase
 import com.tatsuro.app.kakeinote.database.HouseholdAccountBook
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.*
 
-/** 詳細ビューモデル */
-class DetailsViewModel(application: Application) : AndroidViewModel(application) {
+/** 編集ビューモデル */
+class EditViewModel(application: Application) : AndroidViewModel(application) {
 
     /** 金額 */
     val amountOfMoney = MutableLiveData<Int?>()
@@ -24,16 +32,6 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     /** 家計簿 */
     val householdAccountBook get() = householdAccountBookLiveData
         .value ?: error(ErrorMessages.HOUSEHOLD_ACCOUNT_BOOK_LIVEDATA_NOT_INITIALIZED)
-
-    init {
-        householdAccountBookLiveData.value = HouseholdAccountBook()
-        householdAccountBookLiveData.addSource(amountOfMoney) { nullable ->
-            nullable?.let { nonNull ->
-                householdAccountBook.amountOfMoney = nonNull
-                householdAccountBookLiveData.value = householdAccountBook
-            }
-        }
-    }
 
     /** エポックミリ秒の日付 */
     var dateAtEpochMilli: Long
@@ -49,6 +47,27 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
             householdAccountBookLiveData.value = householdAccountBook
         }
 
+    /** 種類未選択イベント */
+    val typeNotSelectedEvent: SharedFlow<HouseholdAccountBook>
+        get() = rewritableTypeNotSelectedEvent
+
+    /** アクティビティ終了イベント */
+    val activityFinishEvent: SharedFlow<Any>
+        get() = rewritableActivityFinishEvent
+
+    /** 書き込み完了イベント */
+    val writeCompleteEvent: SharedFlow<HouseholdAccountBook>
+        get() = rewritableWriteCompleteEvent
+
+    /** 種類未選択イベント（書き換え可能） */
+    private val rewritableTypeNotSelectedEvent = MutableSharedFlow<HouseholdAccountBook>()
+
+    /** アクティビティ終了イベント（書き換え可能） */
+    private val rewritableActivityFinishEvent = MutableSharedFlow<Any>()
+
+    /** 書き込み完了イベント（書き換え可能） */
+    private val rewritableWriteCompleteEvent = MutableSharedFlow<HouseholdAccountBook>()
+
     /**
      * タイムゾーンオフセット
      *
@@ -63,9 +82,14 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
         .getInstance(application)
         .dao()
 
-    /** 家計簿の初期化する。 */
-    fun initHouseholdAccountBook() {
+    init {
         householdAccountBookLiveData.value = HouseholdAccountBook()
+        householdAccountBookLiveData.addSource(amountOfMoney) { nullable ->
+            nullable?.let { nonNull ->
+                householdAccountBook.amountOfMoney = nonNull
+                householdAccountBookLiveData.value = householdAccountBook
+            }
+        }
     }
 
     /**
@@ -144,10 +168,77 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
+     * 書き込むボタンのクリックイベント
+     * @param view クリックされたボタンビュー
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
+     */
+    fun onOnceWriteButtonClick(view: View) {
+        if (householdAccountBook.type == null) {
+            viewModelScope.launch {
+                rewritableTypeNotSelectedEvent.emit(householdAccountBook)
+            }
+            return
+        }
+
+        // ボタンを無効化する。
+        view.apply {
+            isClickable = false
+            setBackgroundColor(App.getColor(R.color.translucent_light_blue))
+        }
+
+        // データベースに保存する。
+        runBlocking {
+            upsert()
+        }
+
+        viewModelScope.launch {
+            rewritableActivityFinishEvent.emit(Any())
+        }
+    }
+
+    /**
+     * 連続で書き込むボタンのクリックイベント
+     * @param view クリックされたボタンビュー
+     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
+     */
+    fun onRepeatWriteButtonClick(view: View) {
+        if (householdAccountBook.type == null) {
+            viewModelScope.launch {
+                rewritableTypeNotSelectedEvent.emit(householdAccountBook)
+            }
+            return
+        }
+
+        // ボタンを無効化する。
+        view.apply {
+            isClickable = false
+            setBackgroundColor(App.getColor(R.color.translucent_light_blue))
+        }
+
+        // データベースに保存する。
+        runBlocking {
+            upsert()
+        }
+
+        viewModelScope.launch {
+            rewritableWriteCompleteEvent.emit(householdAccountBook)
+        }
+
+        // 家計簿を初期化する。
+        householdAccountBookLiveData.value = HouseholdAccountBook()
+
+        // ボタンを有効化する。
+        view.apply {
+            isClickable = true
+            setBackgroundColor(App.getColor(R.color.light_blue))
+        }
+    }
+
+    /**
      * 家計簿に収支を1件書き込む。
      * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
-    suspend fun upsert() {
+    private suspend fun upsert() {
         dao.upsert(householdAccountBook)
     }
 }
