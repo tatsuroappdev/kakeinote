@@ -20,7 +20,7 @@ class TypeSelectBottomSheet : BottomSheetDialogFragment() {
     companion object {
 
         const val EXTRA_ENUM_SELECTED_TYPE =
-            "com.tatsuro.app.bottomsheetdialogfragmentsample.EXTRA_ENUM_SELECTED_TYPE"
+            "com.tatsuro.app.kakeinote.EXTRA_ENUM_SELECTED_TYPE"
 
         /** 引数収支 */
         private const val ARG_INCOME_OR_EXPENSE = "incomeOrExpense"

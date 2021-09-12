@@ -5,11 +5,9 @@ import android.os.Bundle
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
-import com.tatsuro.app.kakeinote.ui.householdaccountbook.HouseholdAccountBookFragment
 
 /** メインアクティビティ */
-class MainActivity : AppCompatActivity(),
-    HouseholdAccountBookFragment.OnItemClickListener {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +40,5 @@ class MainActivity : AppCompatActivity(),
                 return@setOnItemSelectedListener true
             }
         }
-    }
-
-    /** 家計簿リスト項目のクリックイベント */
-    override fun onItemClick(id: Int) {
     }
 }

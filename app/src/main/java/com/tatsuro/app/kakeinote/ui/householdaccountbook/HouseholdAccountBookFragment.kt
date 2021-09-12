@@ -1,17 +1,15 @@
 package com.tatsuro.app.kakeinote.ui.householdaccountbook
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orhanobut.logger.Logger
 import com.tatsuro.app.kakeinote.R
-import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookFragmentBinding
 import com.tatsuro.app.kakeinote.ui.edit.EditActivity
@@ -21,37 +19,12 @@ import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccoun
 /** 家計簿フラグメント */
 class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fragment) {
 
-    /** 家計簿リスト項目がクリックされたときに呼び出されるコールバックのためのインターフェース定義 */
-    interface OnItemClickListener {
-
-        /**
-         * 家計簿リスト項目がクリックされたときに呼び出される。
-         * @param id クリックされた家計簿ID
-         */
-        fun onItemClick(id: Int)
-    }
-
-    /** 家計簿ビューモデル */
-    private val viewModel: HouseholdAccountBookViewModel by viewModels()
-
-    /** 家計簿リスト項目のクリックリスナ */
-    private lateinit var onItemClickListener: OnItemClickListener
-
-    /**
-     * 引数[context]にオーバーライドされているクリックイベントメソッドをクリックリスナに設定する。
-     */
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        if (context is OnItemClickListener) {
-            onItemClickListener = context
-        } else {
-            error(ErrorMessages.DO_NOT_INHERIT_ON_ITEM_CLICK_LISTENER)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val viewModel =
+            ViewModelProvider(this).get(HouseholdAccountBookViewModel::class.java)
+
         val binding = HouseholdAccountBookFragmentBinding.bind(view).also {
             it.viewModel = viewModel
             it.lifecycleOwner = viewLifecycleOwner
@@ -102,7 +75,6 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
                 // 日毎の家計簿本体
                 concatAdapter.addAdapter(
                     HouseholdAccountBookListAdapter(dailyHouseholdAccountBook) {
-                        onItemClickListener.onItemClick(it)
                     }
                 )
             }
