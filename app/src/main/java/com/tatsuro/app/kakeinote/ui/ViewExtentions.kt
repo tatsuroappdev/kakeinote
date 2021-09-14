@@ -1,23 +1,44 @@
 package com.tatsuro.app.kakeinote.ui
 
-import android.os.Handler
-import android.os.Looper
 import android.view.View
+import androidx.annotation.MainThread
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
-private const val CLICKABLE_DELAY_TIME = 100L
-
-fun <T: View> T.setOnSafeClickListener(listener: (it: T) -> Unit) {
-    setOnClickListener { view ->
-        if (view == null) {
-            return@setOnClickListener
-        }
-        view.isEnabled = false
-
-        Handler(Looper.getMainLooper()).postDelayed(
-            { view.isEnabled = true },
-            CLICKABLE_DELAY_TIME
+/**
+ * 連打対策済みのクリックリスナ
+ *
+ * クリックされてから100msまでの間、[View]のクリックを無効にする。
+ * @param listener クリックリスナ
+ */
+fun View.setOnSafeClickListener(listener: View.OnClickListener) {
+    this.setOnClickListener { view ->
+        view.isClickable = false
+        view.postDelayed(
+            {
+                view.isClickable = true
+            },
+            100L
         )
-
-        listener.invoke(view as T)
+        listener.onClick(view)
     }
 }
+
+/**
+ * フラグメント自身をオーナーとするビューモデルを取得する。
+ * @param modelClass 取得したいビューモデルのクラスオブジェクト
+ * @return ビューモデル
+ */
+@MainThread
+fun <T : ViewModel> Fragment.getViewModel(modelClass: Class<T>) =
+    ViewModelProvider(this).get(modelClass)
+
+/**
+ * アクティビティをオーナーとするビューモデルを取得する。
+ * @param modelClass 取得したいビューモデルのクラスオブジェクト
+ * @return ビューモデル
+ */
+@MainThread
+fun <T : ViewModel> Fragment.getActivityViewModel(modelClass: Class<T>) =
+    ViewModelProvider(this.requireActivity()).get(modelClass)

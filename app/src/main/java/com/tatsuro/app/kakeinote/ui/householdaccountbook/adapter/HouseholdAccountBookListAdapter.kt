@@ -8,6 +8,7 @@ import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.database.HouseholdAccountBook
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookItemBinding
+import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
 
 /**
  * 家計簿リストのアダプタ
@@ -81,7 +82,7 @@ class HouseholdAccountBookListAdapter(
                 amountOfMoneyTextView.text = amountOfMoneyText
 
                 // クリックリスナ
-                root.setOnClickListener {
+                root.setOnSafeClickListener {
                     listener.onItemClick(householdAccountBook.id)
                 }
             }

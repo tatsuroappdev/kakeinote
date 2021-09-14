@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orhanobut.logger.Logger
@@ -13,8 +12,10 @@ import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.HouseholdAccountBookFragmentBinding
 import com.tatsuro.app.kakeinote.ui.edit.EditActivity
+import com.tatsuro.app.kakeinote.ui.getViewModel
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookHeaderAdapter
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookListAdapter
+import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
 
 /** 家計簿フラグメント */
 class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fragment) {
@@ -22,8 +23,7 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel =
-            ViewModelProvider(this).get(HouseholdAccountBookViewModel::class.java)
+        val viewModel = getViewModel(HouseholdAccountBookViewModel::class.java)
 
         val binding = HouseholdAccountBookFragmentBinding.bind(view).also {
             it.viewModel = viewModel
@@ -39,7 +39,7 @@ class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fr
                 writeButton, getString(R.string.show_new_write_activity)
             )
 
-            writeButton.setOnClickListener {
+            writeButton.setOnSafeClickListener {
                 val intent = Intent(requireContext(), EditActivity::class.java)
                 startActivity(intent)
             }

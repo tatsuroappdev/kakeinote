@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
 import com.tatsuro.app.kakeinote.databinding.TypeItemBinding
+import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
 
 /**
  * 種類のアダプタ
@@ -47,7 +48,7 @@ class TypeAdapter(
                 val type = types[position]
                 setIconResource(type.drawableResId)
                 setText(type.strResId)
-                setOnClickListener {
+                setOnSafeClickListener {
                     listener.onItemClick(type)
                 }
             }
