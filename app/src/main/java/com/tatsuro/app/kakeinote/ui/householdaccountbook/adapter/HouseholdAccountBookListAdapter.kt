@@ -49,20 +49,15 @@ class HouseholdAccountBookListAdapter(
                 val householdAccountBook = householdAccountBookList[position]
 
                 // 種類のアイコン
-                householdAccountBook.type?.let {
-                    iconImageView.setImageResource(it.drawableResId)
-                }
+                iconImageView.setImageResource(householdAccountBook.type.drawableResId)
 
                 // 内容
                 contentTextView.text = when {
                     householdAccountBook.content != "" -> {
                         householdAccountBook.content
                     }
-                    householdAccountBook.type != null -> {
-                        App.applicationContext.getText(householdAccountBook.type!!.strResId)
-                    }
                     else -> {
-                        ""
+                        App.applicationContext.getText(householdAccountBook.type.strResId)
                     }
                 }
 

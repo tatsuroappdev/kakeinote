@@ -109,13 +109,12 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
                 )
 
                 // スナックバーを作成する。
-                // typeはnullチェック済みなので、強制アンラップする。
                 val snackbar = Snackbar.make(
                     binding.mainLayout,
                     getString(
                         R.string.has_written_income_or_expense,
                         getString(householdAccountBook.incomeOrExpense.strResId),
-                        getString(householdAccountBook.type!!.strResId),
+                        getString(householdAccountBook.type.strResId),
                         amountOfMoneyText
                     ),
                     Snackbar.LENGTH_SHORT
@@ -143,7 +142,7 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
                 return@setFragmentResultListener
             }
 
-            editViewModel.setIncomeOrExpenseType(selectedType)
+            editViewModel.type.value = selectedType
         }
     }
 }

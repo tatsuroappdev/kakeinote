@@ -27,7 +27,7 @@ data class HouseholdAccountBook(
     var incomeOrExpense: IncomeOrExpense = IncomeOrExpense.EXPENSE,
 
     /** 収支の種類 */
-    var type: IncomeOrExpenseType? = null,
+    var type: IncomeOrExpenseType = IncomeOrExpenseType.OTHER_EXPENSE,
 
     /** 内容 */
     var content: String = "",

@@ -135,7 +135,7 @@
                 android:focusable="false"
                 android:inputType="none"
                 android:singleLine="true"
-                app:incomeOrExpenseType="@{viewModel.householdAccountBookLiveData.type}"/>
+                app:incomeOrExpenseType="@{viewModel.type}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
