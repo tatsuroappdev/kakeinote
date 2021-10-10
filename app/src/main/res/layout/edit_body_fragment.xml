@@ -20,32 +20,26 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/expenseButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            style="@style/Button.RoundedCornerButton"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/row_height"
             android:paddingHorizontal="@dimen/button_paddingHorizontal"
             android:backgroundTint="@color/translucent_red"
             android:onClick="@{() -> viewModel.onExpenseButtonClick()}"
             android:text="@string/expense"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:letterSpacing="@dimen/letterSpacing"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintEnd_toStartOf="@id/incomeButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/incomeButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            style="@style/Button.RoundedCornerButton"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/row_height"
             android:paddingHorizontal="@dimen/button_paddingHorizontal"
             android:backgroundTint="@color/translucent_blue"
             android:onClick="@{() -> viewModel.onIncomeButtonClick()}"
             android:text="@string/income"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:letterSpacing="@dimen/letterSpacing"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/expenseButton"
             app:layout_constraintTop_toTopOf="parent" />

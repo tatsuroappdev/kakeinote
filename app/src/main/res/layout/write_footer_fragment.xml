@@ -19,28 +19,22 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/onceWriteButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            style="@style/Button.RoundedCornerButton"
             android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
             android:layout_marginEnd="@dimen/horizontal_margin_middle"
             android:onClick="@{viewModel::onOnceWriteButtonClick}"
             android:text="@string/write"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintEnd_toStartOf="@id/repeatWriteButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/repeatWriteButton"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            style="@style/Button.RoundedCornerButton"
             android:layout_width="0dp"
-            android:layout_height="@dimen/row_height"
             android:layout_marginStart="@dimen/horizontal_margin_middle"
             android:onClick="@{viewModel::onRepeatWriteButtonClick}"
             android:text="@string/repeat_write"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            app:cornerRadius="@dimen/roundButton_cornerRadius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/onceWriteButton"
             app:layout_constraintTop_toTopOf="parent" />
