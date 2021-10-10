@@ -10,7 +10,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.tatsuro.app.kakeinote.App
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
-import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
 import com.tatsuro.app.kakeinote.database.AppDatabase
 import com.tatsuro.app.kakeinote.database.HouseholdAccountBook
@@ -112,38 +111,6 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun setIncomeOrExpenseType(type: IncomeOrExpenseType) {
         householdAccountBook.type = type
-        householdAccountBookLiveData.value = householdAccountBook
-    }
-
-    /**
-     * 支出ボタンのイベント
-     *
-     * 支出ボタンが押されたとき、家計簿の収支を支出に設定する。また、収支の種類をnull値に初期化する。
-     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
-     */
-    fun onExpenseButtonClick() {
-        if (householdAccountBook.incomeOrExpense == IncomeOrExpense.EXPENSE) {
-            return
-        }
-
-        householdAccountBook.incomeOrExpense = IncomeOrExpense.EXPENSE
-        householdAccountBook.type = null
-        householdAccountBookLiveData.value = householdAccountBook
-    }
-
-    /**
-     * 収入ボタンのイベント
-     *
-     * 収入ボタンが押されたとき、家計簿の収支を収入に設定する。また、収支の種類をnull値に初期化する。
-     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
-     */
-    fun onIncomeButtonClick() {
-        if (householdAccountBook.incomeOrExpense == IncomeOrExpense.INCOME) {
-            return
-        }
-
-        householdAccountBook.incomeOrExpense = IncomeOrExpense.INCOME
-        householdAccountBook.type = null
         householdAccountBookLiveData.value = householdAccountBook
     }
 

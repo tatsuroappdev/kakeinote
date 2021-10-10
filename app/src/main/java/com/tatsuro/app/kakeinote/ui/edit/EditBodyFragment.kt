@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -12,12 +11,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.orhanobut.logger.Logger
-import com.tatsuro.app.kakeinote.App
 import com.tatsuro.app.kakeinote.R
-import com.tatsuro.app.kakeinote.constant.ErrorMessages
-import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
 import com.tatsuro.app.kakeinote.databinding.EditBodyFragmentBinding
+import com.tatsuro.app.kakeinote.ui.getActivityViewModel
 import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
 import com.tatsuro.app.kakeinote.ui.typeselect.TypeSelectBottomSheet
 import kotlinx.coroutines.flow.collect
@@ -31,29 +28,21 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
         private const val REQUEST_KEY_TYPE_SELECT = "typeSelect"
     }
 
-    /** バインディングインスタンスの実体 */
-    private var nullableBinding: EditBodyFragmentBinding? = null
-
-    /** 読み取り専用バインディング */
-    private val readOnlyBinding get() =
-        nullableBinding ?: error(ErrorMessages.DATA_BINDING_NOT_BOUND)
-
-    private val _viewModel: EditViewModel by activityViewModels()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        nullableBinding = EditBodyFragmentBinding.bind(view).apply {
-            viewModel = _viewModel
+        val editViewModel = getActivityViewModel(EditViewModel::class.java)
+        val binding = EditBodyFragmentBinding.bind(view).apply {
+            viewModel = editViewModel
             lifecycleOwner = viewLifecycleOwner
 
             // 日付EditTextがクリックされたとき、日付変更ダイアログを表示する。
             dateEditText.setOnSafeClickListener {
                 val datePicker = MaterialDatePicker.Builder
                     .datePicker()
-                    .setSelection(_viewModel.dateAtEpochMilli)
+                    .setSelection(editViewModel.dateAtEpochMilli)
                     .build().apply {
                         addOnPositiveButtonClickListener {
-                            _viewModel.dateAtEpochMilli = it
+                            editViewModel.dateAtEpochMilli = it
                         }
                     }
 
@@ -65,12 +54,12 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
                 val timePicker = MaterialTimePicker.Builder()
                     .setTimeFormat(TimeFormat.CLOCK_24H)
                     .setTitleText(R.string.please_select_time)
-                    .setHour(_viewModel.householdAccountBook.time.hour)
-                    .setMinute(_viewModel.householdAccountBook.time.minute)
+                    .setHour(editViewModel.householdAccountBook.time.hour)
+                    .setMinute(editViewModel.householdAccountBook.time.minute)
                     .build()
 
                 timePicker.addOnPositiveButtonClickListener {
-                    _viewModel.setTime(timePicker.hour, timePicker.minute)
+                    editViewModel.setTime(timePicker.hour, timePicker.minute)
                 }
 
                 timePicker.show(parentFragmentManager, timePicker.toString())
@@ -79,7 +68,7 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
             // 種類EditTextがクリックされたとき、種類選択ボトムシートを表示する。
             typeEditText.setOnSafeClickListener {
                 val bottomSheet = TypeSelectBottomSheet
-                    .newInstance(_viewModel.householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
+                    .newInstance(editViewModel.householdAccountBook.incomeOrExpense, REQUEST_KEY_TYPE_SELECT)
                 bottomSheet.show(parentFragmentManager, bottomSheet.toString())
             }
 
@@ -89,16 +78,11 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
                 nextDayButton, getString(R.string.date_to_next))
         }
 
-        _viewModel.householdAccountBookLiveData.observe(viewLifecycleOwner) {
-            Logger.d(it)
-            refreshIncomeOrExpenseToggleButton()
-        }
-
         lifecycleScope.launchWhenStarted {
-            _viewModel.typeNotSelectedEvent.collect { householdAccountBook ->
+            editViewModel.typeNotSelectedEvent.collect { householdAccountBook ->
                 // スナックバーを作成する。
                 val snackbar = Snackbar.make(
-                    readOnlyBinding.mainLayout,
+                    binding.mainLayout,
                     getString(R.string.please_select_type),
                     Snackbar.LENGTH_SHORT
                 )
@@ -119,7 +103,7 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
         }
 
         lifecycleScope.launchWhenStarted {
-            _viewModel.writeCompleteEvent.collect { householdAccountBook ->
+            editViewModel.writeCompleteEvent.collect { householdAccountBook ->
                 val amountOfMoneyText = "¥ %,d".format(
                     householdAccountBook.amountOfMoney
                 )
@@ -127,7 +111,7 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
                 // スナックバーを作成する。
                 // typeはnullチェック済みなので、強制アンラップする。
                 val snackbar = Snackbar.make(
-                    readOnlyBinding.mainLayout,
+                    binding.mainLayout,
                     getString(
                         R.string.has_written_income_or_expense,
                         getString(householdAccountBook.incomeOrExpense.strResId),
@@ -159,41 +143,7 @@ class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
                 return@setFragmentResultListener
             }
 
-            _viewModel.setIncomeOrExpenseType(selectedType)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        nullableBinding = null
-    }
-
-    /**
-     * 収支トグルボタンの表示を更新する。
-     * @exception IllegalStateException [EditViewModel.householdAccountBook]が初期化されていない場合に投げられる。
-     */
-    private fun refreshIncomeOrExpenseToggleButton() {
-        val expenseButtonColor: Int
-        val incomeButtonColor: Int
-
-        when (_viewModel.householdAccountBook.incomeOrExpense) {
-            IncomeOrExpense.INCOME -> {
-                expenseButtonColor = R.color.translucent_red
-                incomeButtonColor = R.color.blue
-            }
-            IncomeOrExpense.EXPENSE -> {
-                expenseButtonColor = R.color.red
-                incomeButtonColor = R.color.translucent_blue
-            }
-        }
-
-        readOnlyBinding.apply {
-            expenseButton.setBackgroundColor(
-                App.getColor(expenseButtonColor)
-            )
-            incomeButton.setBackgroundColor(
-                App.getColor(incomeButtonColor)
-            )
+            editViewModel.setIncomeOrExpenseType(selectedType)
         }
     }
 }

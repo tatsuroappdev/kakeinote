@@ -1,4 +1,4 @@
-package com.tatsuro.app.kakeinote.ui
+package com.tatsuro.app.kakeinote.ui.widget.adapter
 
 import android.widget.EditText
 import androidx.databinding.BindingAdapter

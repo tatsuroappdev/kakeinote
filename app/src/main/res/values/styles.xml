@@ -4,4 +4,35 @@
         <item name="android:layout_height">@dimen/row_height</item>
         <item name="cornerRadius">@dimen/roundButton_cornerRadius</item>
     </style>
+
+    <style name="Button.RoundedCornerButton.IncomeOrExpenseButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingHorizontal">@dimen/button_paddingHorizontal</item>
+        <item name="android:letterSpacing">@dimen/letterSpacing</item>
+    </style>
+
+    <style name="Button.RoundedCornerButton.IncomeOrExpenseButton.Income">
+        <item name="android:text">@string/income</item>
+    </style>
+
+    <style name="Button.RoundedCornerButton.IncomeOrExpenseButton.Income.On">
+        <item name="backgroundTint">@color/bg_income_button_on</item>
+    </style>
+
+    <style name="Button.RoundedCornerButton.IncomeOrExpenseButton.Income.Off">
+        <item name="backgroundTint">@color/bg_income_button_off</item>
+    </style>
+
+    <style name="Button.RoundedCornerButton.IncomeOrExpenseButton.Expense">
+        <item name="android:text">@string/expense</item>
+    </style>
+
+    <style name="Button.RoundedCornerButton.IncomeOrExpenseButton.Expense.On">
+        <item name="backgroundTint">@color/bg_expense_button_on</item>
+    </style>
+
+    <style name="Button.RoundedCornerButton.IncomeOrExpenseButton.Expense.Off">
+        <item name="backgroundTint">@color/bg_expense_button_off</item>
+    </style>
+
 </resources>
