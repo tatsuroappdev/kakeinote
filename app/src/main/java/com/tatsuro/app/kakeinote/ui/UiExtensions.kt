@@ -1,7 +1,9 @@
 package com.tatsuro.app.kakeinote.ui
 
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.annotation.MainThread
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -42,3 +44,6 @@ fun <T : ViewModel> Fragment.getViewModel(modelClass: Class<T>) =
 @MainThread
 fun <T : ViewModel> Fragment.getActivityViewModel(modelClass: Class<T>) =
     ViewModelProvider(this.requireActivity()).get(modelClass)
+
+/** カラーステートリストを取得する。 */
+fun View.getColorStateList(@ColorRes id: Int) = ContextCompat.getColorStateList(this.context, id)

@@ -10,7 +10,6 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.tatsuro.app.kakeinote.App
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
-import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
 import com.tatsuro.app.kakeinote.database.AppDatabase
 import com.tatsuro.app.kakeinote.database.HouseholdAccountBook
@@ -22,6 +21,9 @@ import java.time.*
 
 /** 編集ビューモデル */
 class EditViewModel(application: Application) : AndroidViewModel(application) {
+
+    /** 種類 */
+    val type = MutableLiveData<IncomeOrExpenseType?>()
 
     /** 金額 */
     val amountOfMoney = MutableLiveData<Int?>()
@@ -84,6 +86,12 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         householdAccountBookLiveData.value = HouseholdAccountBook()
+        householdAccountBookLiveData.addSource(type) { nullable ->
+            nullable?.let { nonNull ->
+                householdAccountBook.type = nonNull
+                householdAccountBookLiveData.value = householdAccountBook
+            }
+        }
         householdAccountBookLiveData.addSource(amountOfMoney) { nullable ->
             nullable?.let { nonNull ->
                 householdAccountBook.amountOfMoney = nonNull
@@ -102,48 +110,6 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
         // 時分を設定する。
         // withメソッドはインスタンスを書き換えないため、 そのメソッドの戻り値で上書きする。
         householdAccountBook.time = householdAccountBook.time.withHour(hour).withMinute(minute)
-        householdAccountBookLiveData.value = householdAccountBook
-    }
-
-    /**
-     * 収支の種類を設定する。
-     * @param type 収支の種類
-     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
-     */
-    fun setIncomeOrExpenseType(type: IncomeOrExpenseType) {
-        householdAccountBook.type = type
-        householdAccountBookLiveData.value = householdAccountBook
-    }
-
-    /**
-     * 支出ボタンのイベント
-     *
-     * 支出ボタンが押されたとき、家計簿の収支を支出に設定する。また、収支の種類をnull値に初期化する。
-     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
-     */
-    fun onExpenseButtonClick() {
-        if (householdAccountBook.incomeOrExpense == IncomeOrExpense.EXPENSE) {
-            return
-        }
-
-        householdAccountBook.incomeOrExpense = IncomeOrExpense.EXPENSE
-        householdAccountBook.type = null
-        householdAccountBookLiveData.value = householdAccountBook
-    }
-
-    /**
-     * 収入ボタンのイベント
-     *
-     * 収入ボタンが押されたとき、家計簿の収支を収入に設定する。また、収支の種類をnull値に初期化する。
-     * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
-     */
-    fun onIncomeButtonClick() {
-        if (householdAccountBook.incomeOrExpense == IncomeOrExpense.INCOME) {
-            return
-        }
-
-        householdAccountBook.incomeOrExpense = IncomeOrExpense.INCOME
-        householdAccountBook.type = null
         householdAccountBookLiveData.value = householdAccountBook
     }
 
@@ -173,7 +139,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
      * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun onOnceWriteButtonClick(view: View) {
-        if (householdAccountBook.type == null) {
+        if (type.value == null) {
             viewModelScope.launch {
                 rewritableTypeNotSelectedEvent.emit(householdAccountBook)
             }
@@ -202,7 +168,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
      * @exception IllegalStateException [householdAccountBookLiveData]が初期化されていない場合に投げられる。
      */
     fun onRepeatWriteButtonClick(view: View) {
-        if (householdAccountBook.type == null) {
+        if (type.value == null) {
             viewModelScope.launch {
                 rewritableTypeNotSelectedEvent.emit(householdAccountBook)
             }

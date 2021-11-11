@@ -15,10 +15,6 @@ object ErrorMessages {
     const val SELECTED_YEAR_MONTH_NOT_INITIALIZED =
         "The property selectedYearMonth is not initialized."
 
-    /** データバインディングがバインドされていない。 */
-    const val DATA_BINDING_NOT_BOUND =
-        "The data binding is not bound."
-
     /** プロパティhouseholdAccountBookLiveDataは初期化されていない。 */
     const val HOUSEHOLD_ACCOUNT_BOOK_LIVEDATA_NOT_INITIALIZED =
         "The property householdAccountBookLiveData is not initialized."
