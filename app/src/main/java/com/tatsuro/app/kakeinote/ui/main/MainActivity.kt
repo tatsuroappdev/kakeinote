@@ -1,13 +1,13 @@
 package com.tatsuro.app.kakeinote.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
+import com.tatsuro.app.kakeinote.ui.base.BaseActivity
 
 /** メインアクティビティ */
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
