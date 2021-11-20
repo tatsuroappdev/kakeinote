@@ -1,14 +1,18 @@
 package com.tatsuro.app.kakeinote.ui.householdaccountbook
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
-import com.tatsuro.app.kakeinote.database.AppDatabase
+import com.tatsuro.app.kakeinote.database.Dao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
+import javax.inject.Inject
 
 /** 家計簿ビューモデル */
-class HouseholdAccountBookViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class HouseholdAccountBookViewModel @Inject constructor(
+    private val dao: Dao
+) : ViewModel() {
 
     /** 選択年月（内部書き込み向け） */
     private val _selectedYearMonth =
@@ -16,11 +20,6 @@ class HouseholdAccountBookViewModel(application: Application) : AndroidViewModel
 
     /** 選択年月 */
     val selectedYearMonth: LiveData<LocalDate> get() = _selectedYearMonth
-
-    /** DAO */
-    private val dao = AppDatabase
-        .getInstance(application)
-        .dao()
 
     /** 選択年月の家計簿 */
     val householdAccountBook = selectedYearMonth.switchMap { start ->

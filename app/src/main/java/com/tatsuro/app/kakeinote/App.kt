@@ -8,8 +8,10 @@ import androidx.core.content.ContextCompat
 import com.tatsuro.app.kakeinote.initializer.FlipperInitializer
 import com.tatsuro.app.kakeinote.initializer.LoggerInitializer
 import com.tatsuro.app.kakeinote.initializer.StrictModeInitializer
+import dagger.hilt.android.HiltAndroidApp
 
 @Suppress("unused")
+@HiltAndroidApp
 class App : Application() {
 
     init {

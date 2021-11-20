@@ -13,8 +13,10 @@ import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpense
 import com.tatsuro.app.kakeinote.databinding.TypeSelectBottomSheetBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /** 種類選択ボトムシート */
+@AndroidEntryPoint
 class TypeSelectBottomSheet : BottomSheetDialogFragment() {
 
     companion object {

@@ -7,6 +7,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentContainerView
 import com.tatsuro.app.kakeinote.R
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * その他ベースフラグメント
@@ -14,6 +15,7 @@ import com.tatsuro.app.kakeinote.R
  * [PreferenceFragmentCompat]を継承した[MiscFragment]に[Toolbar]を表示するため、
  * [Toolbar]と[FragmentContainerView]を持つ[MiscBaseFragment]を作成する。
  */
+@AndroidEntryPoint
 class MiscBaseFragment : Fragment(R.layout.misc_base_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

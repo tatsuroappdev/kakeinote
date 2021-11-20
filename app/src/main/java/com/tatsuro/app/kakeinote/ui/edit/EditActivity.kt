@@ -7,10 +7,12 @@ import androidx.lifecycle.lifecycleScope
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.databinding.EditActivityBinding
 import com.tatsuro.app.kakeinote.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /** 編集アクティビティ */
+@AndroidEntryPoint
 class EditActivity : BaseActivity() {
 
     private val viewModel: EditViewModel by viewModels()

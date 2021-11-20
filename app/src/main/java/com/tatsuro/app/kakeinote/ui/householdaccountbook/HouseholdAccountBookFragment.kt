@@ -16,8 +16,10 @@ import com.tatsuro.app.kakeinote.ui.getViewModel
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookHeaderAdapter
 import com.tatsuro.app.kakeinote.ui.householdaccountbook.adapter.HouseholdAccountBookListAdapter
 import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
+import dagger.hilt.android.AndroidEntryPoint
 
 /** 家計簿フラグメント */
+@AndroidEntryPoint
 class HouseholdAccountBookFragment : Fragment(R.layout.household_account_book_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
