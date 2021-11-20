@@ -95,7 +95,7 @@ dependencies {
 
     // AndroidX
     implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.1")
     implementation("androidx.fragment:fragment-ktx:1.4.0-alpha08")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
@@ -114,17 +114,17 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
 
     // Flipper
-    debugImplementation("com.facebook.flipper:flipper:0.118.1")
+    debugImplementation("com.facebook.flipper:flipper:0.120.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.3")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.118.1")
-    releaseImplementation("com.facebook.flipper:flipper-noop:0.118.1")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.120.0")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.120.0")
 
     implementation("com.orhanobut:logger:2.2.0")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.assertj:assertj-core:3.21.0")
-    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("org.mockito:mockito-core:4.1.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
