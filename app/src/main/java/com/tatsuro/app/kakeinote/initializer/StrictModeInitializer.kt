@@ -1,7 +1,6 @@
 package com.tatsuro.app.kakeinote.initializer
 
 import android.os.StrictMode
-import androidx.fragment.app.strictmode.FragmentStrictMode
 import com.tatsuro.app.kakeinote.BuildConfig
 
 object StrictModeInitializer {
@@ -27,16 +26,5 @@ object StrictModeInitializer {
             .penaltyLog()
             .build()
         StrictMode.setVmPolicy(vmPolicy)
-
-        val fragmentPolicy = FragmentStrictMode.Policy.Builder()
-            .detectFragmentReuse()
-            .detectFragmentTagUsage()
-            .detectRetainInstanceUsage()
-            .detectSetUserVisibleHint()
-            .detectTargetFragmentUsage()
-            .detectWrongFragmentContainer()
-            .penaltyLog()
-            .build()
-        FragmentStrictMode.setDefaultPolicy(fragmentPolicy)
     }
 }

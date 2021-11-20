@@ -1,17 +1,17 @@
 package com.tatsuro.app.kakeinote.ui.edit
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.databinding.EditActivityBinding
+import com.tatsuro.app.kakeinote.ui.base.BaseActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /** 編集アクティビティ */
-class EditActivity : AppCompatActivity() {
+class EditActivity : BaseActivity() {
 
     private val viewModel: EditViewModel by viewModels()
 
