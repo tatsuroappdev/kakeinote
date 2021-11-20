@@ -34,7 +34,7 @@ fun View.setOnSafeClickListener(listener: View.OnClickListener) {
  */
 @MainThread
 fun <T : ViewModel> Fragment.getViewModel(modelClass: Class<T>) =
-    ViewModelProvider(this).get(modelClass)
+    ViewModelProvider(this)[modelClass]
 
 /**
  * アクティビティをオーナーとするビューモデルを取得する。
@@ -43,7 +43,7 @@ fun <T : ViewModel> Fragment.getViewModel(modelClass: Class<T>) =
  */
 @MainThread
 fun <T : ViewModel> Fragment.getActivityViewModel(modelClass: Class<T>) =
-    ViewModelProvider(this.requireActivity()).get(modelClass)
+    ViewModelProvider(this.requireActivity())[modelClass]
 
 /** カラーステートリストを取得する。 */
 fun View.getColorStateList(@ColorRes id: Int) = ContextCompat.getColorStateList(this.context, id)
