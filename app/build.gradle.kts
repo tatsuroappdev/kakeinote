@@ -5,6 +5,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     id("com.starter.easylauncher") version "4.1.1"
 }
 
@@ -113,6 +114,16 @@ dependencies {
     kapt("androidx.room:room-compiler:2.3.0")
 
     implementation("com.google.android.material:material:1.4.0")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.40.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.40.1")
+
+    // Hilt ViewModel
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+
+    // Hilt Compiler
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // Flipper
     debugImplementation("com.facebook.flipper:flipper:0.120.0")

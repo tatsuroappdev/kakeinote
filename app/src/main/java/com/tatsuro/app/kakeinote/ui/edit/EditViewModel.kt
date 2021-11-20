@@ -1,26 +1,27 @@
 package com.tatsuro.app.kakeinote.ui.edit
 
-import android.app.Application
 import android.view.View
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.tatsuro.app.kakeinote.App
 import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.constant.IncomeOrExpenseType
-import com.tatsuro.app.kakeinote.database.AppDatabase
+import com.tatsuro.app.kakeinote.database.Dao
 import com.tatsuro.app.kakeinote.database.HouseholdAccountBook
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.time.*
+import javax.inject.Inject
 
 /** 編集ビューモデル */
-class EditViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class EditViewModel @Inject constructor(
+    private val dao: Dao
+) : ViewModel() {
 
     /** 種類 */
     val type = MutableLiveData<IncomeOrExpenseType?>()
@@ -78,11 +79,6 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
      * [#546](https://github.com/material-components/material-components-android/issues/546)
      */
     private val zoneOffset = ZoneOffset.UTC
-
-    /** DAO */
-    private val dao = AppDatabase
-        .getInstance(application)
-        .dao()
 
     init {
         householdAccountBookLiveData.value = HouseholdAccountBook()

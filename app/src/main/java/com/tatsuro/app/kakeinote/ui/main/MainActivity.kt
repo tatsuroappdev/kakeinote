@@ -5,8 +5,10 @@ import com.tatsuro.app.kakeinote.R
 import com.tatsuro.app.kakeinote.constant.ErrorMessages
 import com.tatsuro.app.kakeinote.databinding.MainActivityBinding
 import com.tatsuro.app.kakeinote.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 /** メインアクティビティ */
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

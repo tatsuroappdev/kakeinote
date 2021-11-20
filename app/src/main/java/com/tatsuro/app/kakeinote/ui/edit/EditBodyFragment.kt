@@ -17,9 +17,11 @@ import com.tatsuro.app.kakeinote.databinding.EditBodyFragmentBinding
 import com.tatsuro.app.kakeinote.ui.getActivityViewModel
 import com.tatsuro.app.kakeinote.ui.setOnSafeClickListener
 import com.tatsuro.app.kakeinote.ui.typeselect.TypeSelectBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 /** 編集ボディフラグメント */
+@AndroidEntryPoint
 class EditBodyFragment : Fragment(R.layout.edit_body_fragment) {
 
     companion object {
