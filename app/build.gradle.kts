@@ -5,6 +5,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("com.starter.easylauncher") version "4.1.1"
 }
 
 android {
