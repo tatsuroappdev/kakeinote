@@ -115,7 +115,7 @@ dependencies {
 
     implementation("com.google.android.material:material:1.4.0")
 
-    // Hilt
+    // Hilt Android
     implementation("com.google.dagger:hilt-android:2.40.1")
     kapt("com.google.dagger:hilt-android-compiler:2.40.1")
 
