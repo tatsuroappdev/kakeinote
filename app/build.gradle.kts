@@ -102,7 +102,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.4.0-rc01")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("androidx.preference:preference:1.1.1")
+    implementation("androidx.preference:preference-ktx:1.1.1")
 
     // AndroidX Lifecycle
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
