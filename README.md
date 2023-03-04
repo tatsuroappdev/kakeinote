@@ -5,13 +5,6 @@
 - 言語： Kotlin 1.5.30
 - IDE： Android Studio Arctic Fox | 2020.3.1
 
-## 画面
-以下は、2021年6月13日現在の画面イメージです。
-
-| 家計簿画面 | 新規書き込み画面 | 種類選択画面（収入） | 種類選択画面（支出） |
-| :--- | :--- | :--- | :--- |
-| <img src="img/img_household_account_book.png" width="240"> | <img src="img/img_new_write.png" width="240"> | <img src="img/img_type_select_bottom_sheet_income.png" width="240"> | <img src="img/img_type_select_bottom_sheet_expense.png" width="240"> |
-
 ## 導入技術
 ### Kotlin
 - Coroutines
@@ -31,7 +24,5 @@
 ### その他
 - [Material Components for Android](https://github.com/material-components/material-components-android)
 - [Flipper](https://fbflipper.com/)
-- (予定)[Hyperion](https://github.com/willowtreeapps/Hyperion-Android#readme)
 - [LeakCanary](https://square.github.io/leakcanary/)
 - [Logger](https://github.com/orhanobut/logger#readme)
-- (予定)[Kotpref](https://chibatching.github.io/Kotpref/)
